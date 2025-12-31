@@ -158,6 +158,206 @@ button_actions:
 | `int` | `{{ value \| int }}` | Convert to integer |
 | `float` | `{{ value \| float }}` | Convert to float |
 
+## Entity & Template Sensor Setup
+
+- **Recommended state values:** `PUT_OUT`, `BRING_IN`, `IDLE` (or any domain-specific states you map in `rules`).
+- **Recommended attributes:**
+  - `target_bin`: short key for the color/type (e.g., `blue`, `green`, `purple`, `black`).
+  - `friendly_name_text`: display-friendly name (e.g., "Paper", "Compost").
+  - Optional: `status_reason`, `next_collection`, `source` (e.g., `schedule`, `vision`, `manual`).
+- **Color mapping:** Define `color_map` in the card config and refer to it with `{{ attr.target_bin \| color_map }}` inside `rules`.
+
+### Color mapping (card config)
+
+```yaml
+type: custom:status-banner-card
+entity: sensor.garbage_dashboard_status
+
+color_map:
+  blue: "#2196F3"
+  green: "#4CAF50"
+  purple: "#9C27B0"
+  black: "#686868"
+  default: "#9E9E9E"
+```
+
+## Simple schedule-driven template sensor
+
+```yaml
+template:
+  - sensor:
+      - name: Garbage Dashboard Status
+        unique_id: garbage_dashboard_status
+        state: >
+          {% set raw_tomorrow = states('sensor.avalex_tomorrow') | lower %}
+          {% set raw_today = states('sensor.avalex_today') | lower %}
+          {% set invalid = ['unknown', 'unavailable', 'geen', 'none'] %}
+          {% set has_tomorrow = raw_tomorrow not in invalid %}
+          {% set has_today = raw_today not in invalid %}
+          {% if has_tomorrow %}
+            PUT_OUT
+          {% elif has_today %}
+            BRING_IN
+          {% else %}
+            IDLE
+          {% endif %}
+        attributes:
+          target_bin: >
+            {% set cmap = {'restafval': 'black', 'gft': 'green', 'papier': 'blue', 'pmd': 'purple'} %}
+            {% if raw_tomorrow not in ['unknown', 'unavailable', 'geen', 'none'] %}
+              {{ cmap.get(raw_tomorrow, 'none') }}
+            {% elif raw_today not in ['unknown', 'unavailable', 'geen', 'none'] %}
+              {{ cmap.get(raw_today, 'none') }}
+            {% else %}
+              none
+            {% endif %}
+          friendly_name_text: >
+            {% set names = {'restafval': 'General Waste', 'gft': 'Compost', 'pmd': 'Plastic and Metal', 'papier': 'Paper'} %}
+            {% if raw_tomorrow not in ['unknown', 'unavailable', 'geen', 'none'] %}
+              {{ names.get(raw_tomorrow, raw_tomorrow) }}
+            {% elif raw_today not in ['unknown', 'unavailable', 'geen', 'none'] %}
+              {{ names.get(raw_today, raw_today) }}
+            {% else %}
+              Bin
+            {% endif %}
+          next_collection: "{{ states('sensor.avalex_tomorrow') }}"
+```
+
+### Card config (simple)
+
+```yaml
+type: custom:status-banner-card
+entity: sensor.garbage_dashboard_status
+
+color_map:
+  blue: "#2196F3"
+  green: "#4CAF50"
+  purple: "#9C27B0"
+  black: "#686868"
+  default: "#9E9E9E"
+
+rules:
+  - state: PUT_OUT
+    title: "PUT OUT {{ attr.friendly_name_text | upper }}"
+    subtitle: "Collection Tomorrow"
+    icon: mdi:delete-restore
+    color: "{{ attr.target_bin | color_map }}"
+    status_text: "Scheduled. AI/automation will verify placement tonight."
+  - state: BRING_IN
+    title: "BRING IN {{ attr.friendly_name_text | upper }}"
+    subtitle: "Bin Detected on Street"
+    icon: mdi:delete-alert
+    color: "#F44336"
+    status_text: "Please return the bin to the garage."
+
+default:
+  title: "NO ACTIVE TASKS"
+  subtitle: "All bins accounted for"
+  icon: mdi:delete-off
+  color: "#505050"
+  status_text: "Next collection: {{ states('sensor.avalex_tomorrow') }}"
+```
+
+## Advanced vision + memory outline (matches automation)
+
+Use the provided automation (LLM vision with multi-day memory) to update `input_text.bin_status_memory` and rely on schedule sensors. The template sensor below prioritizes memory when the bin is out, then schedule:
+
+```yaml
+template:
+  - sensor:
+      - name: Garbage Dashboard Status
+        unique_id: garbage_dashboard_status
+        state: >
+          {% set mem = states('input_text.bin_status_memory') %}
+          {% set raw_tomorrow = states('sensor.avalex_tomorrow') | lower %}
+          {% set raw_today = states('sensor.avalex_today') | lower %}
+          {% set invalid = ['unknown', 'unavailable', 'geen', 'none', ''] %}
+          {% if mem not in invalid %}
+            BRING_IN
+          {% elif raw_tomorrow not in invalid %}
+            PUT_OUT
+          {% elif raw_today not in invalid %}
+            BRING_IN
+          {% else %}
+            IDLE
+          {% endif %}
+        attributes:
+          target_bin: >
+            {% set cmap = {'restafval': 'black', 'gft': 'green', 'papier': 'blue', 'pmd': 'purple'} %}
+            {% if mem not in ['unknown', 'unavailable', ''] %}
+              {{ mem }}
+            {% elif raw_tomorrow not in ['unknown', 'unavailable', 'geen', 'none'] %}
+              {{ cmap.get(raw_tomorrow, 'none') }}
+            {% elif raw_today not in ['unknown', 'unavailable', 'geen', 'none'] %}
+              {{ cmap.get(raw_today, 'none') }}
+            {% else %}
+              none
+            {% endif %}
+          friendly_name_text: >
+            {% set names = {'restafval': 'General Waste', 'gft': 'Compost', 'pmd': 'Plastic and Metal', 'papier': 'Paper'} %}
+            {% if mem not in ['unknown', 'unavailable', ''] %}
+              {{ mem | capitalize }}
+            {% elif raw_tomorrow not in ['unknown', 'unavailable', 'geen', 'none'] %}
+              {{ names.get(raw_tomorrow, raw_tomorrow) }}
+            {% elif raw_today not in ['unknown', 'unavailable', 'geen', 'none'] %}
+              {{ names.get(raw_today, raw_today) }}
+            {% else %}
+              Bin
+            {% endif %}
+          status_reason: >
+            {% if mem not in ['unknown', 'unavailable', ''] %}
+              Vision/memory indicates bin still out
+            {% else %}
+              Schedule-driven
+            {% endif %}
+          source: >
+            {% if mem not in ['unknown', 'unavailable', ''] %}vision{% else %}schedule{% endif %}
+```
+
+### Card config (advanced vision + memory)
+
+```yaml
+type: custom:status-banner-card
+entity: sensor.garbage_dashboard_status
+
+color_map:
+  blue: "#2196F3"
+  green: "#4CAF50"
+  purple: "#9C27B0"
+  black: "#686868"
+  default: "#9E9E9E"
+
+rules:
+  - state: PUT_OUT
+    title: "PUT OUT {{ attr.friendly_name_text | upper }}"
+    subtitle: "Collection Tomorrow"
+    icon: mdi:delete-restore
+    color: "{{ attr.target_bin | color_map }}"
+    status_text: >
+      Scheduled. Vision will verify placement tonight.
+  - state: BRING_IN
+    title: "BRING IN {{ attr.friendly_name_text | upper }}"
+    subtitle: >
+      {% if attr.source == 'vision' %}Bin detected on street{% else %}Based on collection schedule{% endif %}
+    icon: mdi:delete-alert
+    color: "#F44336"
+    status_text: >
+      {% if attr.status_reason %}{{ attr.status_reason }}{% else %}Please return the bin.{% endif %}
+
+default:
+  title: "NO ACTIVE TASKS"
+  subtitle: "All bins accounted for"
+  icon: mdi:delete-off
+  color: "#505050"
+  status_text: "Next collection: {{ states('sensor.avalex_tomorrow') }}"
+```
+
+Notes:
+- The automation should write the detected color to `input_text.bin_status_memory` when a bin stays out, and clear it once returned.
+- The LLM vision step counts bins by color; keep color keys aligned with `color_map` and the automation’s mapping.
+- Floodlight on/off and multi-camera shots improve detection quality.
+- Use `mode: parallel` with a `max` guard (as in the provided automation) to allow manual tests without blocking scheduled runs.
+
 ## Examples
 
 ### EV Charging Status
