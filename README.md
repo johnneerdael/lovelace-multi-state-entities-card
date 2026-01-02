@@ -8,6 +8,10 @@ A flexible Home Assistant Lovelace card with a distinctive banner design for dis
 
 ## What's New
 
+### v1.1.5 - Cleaner Labels & Simplified Options
+- **Renamed Labels** - "Show Diagonal Pattern" → "Show Stripes", "Pattern Size" → "Stripe Width"
+- **Removed Variant** - The card variant dropdown was removed; use `show_status` and `show_footer` toggles instead
+
 ### v1.1.4 - Accent Toggle
 - **Show/Hide Accent** - New toggle to completely disable the diagonal accent
 - **Sliders start at 0%** - Width and height sliders now go from 0-100/150% for full control
@@ -141,7 +145,7 @@ Each rule in the `rules` array can have:
 | ---------------- | ------- | ------- | --------------------------------------------------- |
 | `show_accent`    | boolean | `true`  | Show the diagonal color accent                      |
 | `show_pattern`   | boolean | `true`  | Show diagonal stripe pattern                        |
-| `pattern_size`   | number  | `20`    | Pattern stripe size in pixels                       |
+| `pattern_size`   | number  | `20`    | Stripe width in pixels                              |
 | `accent_width`   | number  | `60`    | Accent triangle width (0-100% of card width)        |
 | `accent_height`  | number  | `100`   | Accent triangle height (0-150% of full card)        |
 | `show_status`    | boolean | `true`  | Show status box                                     |
@@ -151,7 +155,6 @@ Each rule in the `rules` array can have:
 | `header_height`  | string  | `120px` | Header section height                               |
 | `icon_size`      | string  | `54px`  | Main icon size                                      |
 | `border_radius`  | string  | `16px`  | Card corner radius                                  |
-| `variant`        | string  | `full`  | Card variant: `full`, `header-only`, `compact`      |
 
 ### Footer Options
 

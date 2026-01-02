@@ -379,7 +379,7 @@ export class StatusBannerCardEditor extends LitElement {
         ${this._config.show_accent !== false
           ? html`
               <div class="toggle-row">
-                <span>Show Diagonal Pattern</span>
+                <span>Show Stripes</span>
                 <ha-switch
                   .checked=${this._config.show_pattern !== false}
                   @change=${(e: Event) =>
@@ -392,7 +392,7 @@ export class StatusBannerCardEditor extends LitElement {
                     <ha-textfield
                       type="number"
                       .value=${String(this._config.pattern_size ?? 20)}
-                      .label=${'Pattern Size (px)'}
+                      .label=${'Stripe Width (px)'}
                       @input=${(e: Event) =>
                         this._valueChanged(
                           'pattern_size',
@@ -510,17 +510,6 @@ export class StatusBannerCardEditor extends LitElement {
           @input=${(e: Event) =>
             this._valueChanged('border_radius', (e.target as HTMLInputElement).value)}
         ></ha-textfield>
-
-        <ha-select
-          .value=${this._config.variant || 'full'}
-          .label=${'Card Variant'}
-          @selected=${(e: CustomEvent) =>
-            this._valueChanged('variant', (e.target as HTMLSelectElement).value)}
-        >
-          <mwc-list-item value="full">Full</mwc-list-item>
-          <mwc-list-item value="header-only">Header Only</mwc-list-item>
-          <mwc-list-item value="compact">Compact</mwc-list-item>
-        </ha-select>
       </div>
     `;
   }

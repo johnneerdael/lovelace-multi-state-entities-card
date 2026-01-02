@@ -200,41 +200,6 @@ export const styles = css`
   }
 
   /* ═══════════════════════════════════════════════════════════════
-     VARIANTS
-     ═══════════════════════════════════════════════════════════════ */
-
-  /* Header Only Variant */
-  .card-container.header-only .header {
-    border-radius: var(--border-radius, 16px);
-  }
-
-  /* Compact Variant */
-  .card-container.compact .header {
-    min-height: 80px;
-  }
-
-  .card-container.compact .title {
-    font-size: 1.25rem;
-  }
-
-  .card-container.compact .subtitle {
-    font-size: 1rem;
-  }
-
-  .card-container.compact .body {
-    padding: 0 16px;
-  }
-
-  .card-container.compact .status-box {
-    padding: 12px;
-    font-size: 0.875rem;
-  }
-
-  .card-container.compact .footer {
-    padding: 12px 16px;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════
      ANIMATIONS
      ═══════════════════════════════════════════════════════════════ */
 

@@ -64,8 +64,7 @@ export class StatusBannerCard extends LitElement {
   }
 
   public getCardSize(): number {
-    if (this._config?.variant === 'compact') return 2;
-    if (this._config?.variant === 'header-only') return 2;
+    if (this._config?.show_status === false && this._config?.show_footer === false) return 2;
     return 3;
   }
 
@@ -164,9 +163,8 @@ export class StatusBannerCard extends LitElement {
       this._config.status_label
     );
 
-    const variant = this._config.variant || 'full';
-    const showStatus = this._config.show_status !== false && variant !== 'header-only';
-    const showFooter = this._config.show_footer !== false && variant !== 'header-only';
+    const showStatus = this._config.show_status !== false;
+    const showFooter = this._config.show_footer !== false;
 
     // Accent settings
     const showAccent = this._config.show_accent !== false;
@@ -178,7 +176,7 @@ export class StatusBannerCard extends LitElement {
     return html`
       <ha-card @click=${this._handleCardClick}>
         <div
-          class="card-container ${variant}"
+          class="card-container"
           style="--border-radius: ${this._config.border_radius}"
         >
           ${showAccent
@@ -375,7 +373,7 @@ window.customCards.push({
 
 // Log version info
 console.info(
-  `%c  STATUS-BANNER-CARD  %c  v1.1.4  `,
+  `%c  STATUS-BANNER-CARD  %c  v1.1.5  `,
   'color: white; background: #2196F3; font-weight: bold;',
   'color: #2196F3; background: white; font-weight: bold;'
 );

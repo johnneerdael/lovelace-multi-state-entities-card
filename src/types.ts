@@ -67,9 +67,6 @@ export interface StatusBannerCardConfig {
   /** Border radius (CSS value) */
   border_radius?: string;
 
-  /** Card style variant */
-  variant?: 'full' | 'header-only' | 'compact';
-
   /** Pattern stripe size in pixels (default: 20) */
   pattern_size?: number;
 

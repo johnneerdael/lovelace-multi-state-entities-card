@@ -11,7 +11,6 @@ export const DEFAULT_CONFIG: Partial<StatusBannerCardConfig> = {
   header_height: '120px',
   icon_size: '54px',
   border_radius: '16px',
-  variant: 'full',
   timestamp_attribute: 'last_triggered',
   status_label: 'Status',
   pattern_size: 20,
