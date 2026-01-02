@@ -6,28 +6,28 @@
 
 A flexible Home Assistant Lovelace card with a distinctive banner design for displaying entity states. Perfect for garbage collection schedules, EV charging status, alarm systems, or any status-driven automation.
 
-![Status Banner Card Preview](docs/preview.png)
+![1.00](docs/preview.png)
 
 ## Features
 
-- 🎨 **Distinctive Banner Design** - Angled color accent with optional diagonal stripe pattern
-- 🔧 **Fully Configurable** - Rule-based state-to-display mapping
-- 📝 **Template Support** - Use `{{ state }}`, `{{ attr.name }}`, filters, and more
-- 🎯 **Action Support** - Tap actions, button actions, service calls
-- 🌈 **Color Mapping** - Define color palettes for dynamic theming
-- 📱 **Responsive** - Works on all screen sizes
-- 🌙 **Theme Support** - Respects Home Assistant themes
-- 📋 **Visual Editor** - Full GUI configuration
+* 🎨 **Distinctive Banner Design** - Angled color accent with optional diagonal stripe pattern
+* 🔧 **Fully Configurable** - Rule-based state-to-display mapping
+* 📝 **Template Support** - Use `{{ state }}`, `{{ attr.name }}`, filters, and more
+* 🎯 **Action Support** - Tap actions, button actions, service calls
+* 🌈 **Color Mapping** - Define color palettes for dynamic theming
+* 📱 **Responsive** - Works on all screen sizes
+* 🌙 **Theme Support** - Respects Home Assistant themes
+* 📋 **Visual Editor** - Full GUI configuration
 
 ## Examples
 
-![EV Charging Card](https://github.com/johnneerdael/status-banner-card/blob/main/examples/ev-charging.png?raw=true)
+![1.00](https://github.com/johnneerdael/status-banner-card/blob/main/examples/ev-charging.png?raw=true)
 
-- [EV Charging Blueprint](https://gist.githubusercontent.com/johnneerdael/a71b316da3ece86165fe3ae4a9668023/raw/d06c38c4ce01cc7582e6c29174533ec96ccd4ac6/ev-charging-001.yaml), Addons used: Lynk&Co, Zonneplan, and PirateWeather, Camera Integration and LLM Vision + AI Task
+* [EV Charging Blueprint](https://gist.githubusercontent.com/johnneerdael/a71b316da3ece86165fe3ae4a9668023/raw/d06c38c4ce01cc7582e6c29174533ec96ccd4ac6/ev-charging-001.yaml), Addons used: Lynk\&Co, Zonneplan, and PirateWeather, Camera Integration and LLM Vision + AI Task
 
-![Smart Bin Detection Card](https://github.com/johnneerdael/status-banner-card/blob/main/examples/garbage-collection.png?raw=true)
+![1.00](https://github.com/johnneerdael/status-banner-card/blob/main/examples/garbage-collection.png?raw=true)
 
-- [Smart Bin Detection Blueprint](https://gist.githubusercontent.com/johnneerdael/f1907f11554b50ee9eee3391987f9092/raw/d105230acd8447b602b1cbea8638129085405083/garbage-collection-001.yaml), Addons used: Afvalbeheer, Time and Date, TTS and Camera Integration and LLM Vision
+* [Smart Bin Detection Blueprint](https://gist.githubusercontent.com/johnneerdael/f1907f11554b50ee9eee3391987f9092/raw/d105230acd8447b602b1cbea8638129085405083/garbage-collection-001.yaml), Addons used: Afvalbeheer, Time and Date, TTS and Camera Integration and LLM Vision
 
 ## Installation
 
@@ -44,12 +44,12 @@ A flexible Home Assistant Lovelace card with a distinctive banner design for dis
 1. Download `status-banner-card.js` from the [latest release](https://github.com/jneerdael/status-banner-card/releases)
 2. Copy to `/config/www/status-banner-card.js`
 3. Add resource in Home Assistant:
-   - Go to Settings → Dashboards → Resources
-   - Add `/local/status-banner-card.js` as JavaScript Module
+   * Go to Settings → Dashboards → Resources
+   * Add `/local/status-banner-card.js` as JavaScript Module
 
 ## Quick Start
 
-```yaml
+```YAML
 type: custom:status-banner-card
 entity: sensor.garbage_dashboard_status
 
@@ -86,50 +86,50 @@ color_map:
 
 ### Basic Options
 
-| Option | Type | Required | Default | Description |
-|--------|------|----------|---------|-------------|
-| `entity` | string | ✅ | - | Primary entity ID |
-| `rules` | array | ❌ | `[]` | State-to-display rules |
-| `default` | object | ❌ | - | Default display when no rules match |
-| `color_map` | object | ❌ | - | Named color mappings |
+| Option      | Type   | Required | Default | Description                         |
+| ----------- | ------ | -------- | ------- | ----------------------------------- |
+| `entity`    | string | ✅        | -       | Primary entity ID                   |
+| `rules`     | array  | ❌        | `[]`    | State-to-display rules              |
+| `default`   | object | ❌        | -       | Default display when no rules match |
+| `color_map` | object | ❌        | -       | Named color mappings                |
 
 ### Rule Configuration
 
 Each rule in the `rules` array can have:
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `state` | string | State value to match (exact or `/regex/`) |
-| `attribute` | object | Match on attribute: `{ name: "attr_name", value: "value" }` |
-| `title` | string | Title text (supports templates) |
-| `subtitle` | string | Subtitle text (supports templates) |
-| `icon` | string | MDI icon (e.g., `mdi:home`) |
-| `color` | string | Hex color or template with `color_map` |
-| `status_text` | string | Status box text (supports templates) |
+| Option        | Type   | Description                                                 |
+| ------------- | ------ | ----------------------------------------------------------- |
+| `state`       | string | State value to match (exact or `/regex/`)                   |
+| `attribute`   | object | Match on attribute: `{ name: "attr_name", value: "value" }` |
+| `title`       | string | Title text (supports templates)                             |
+| `subtitle`    | string | Subtitle text (supports templates)                          |
+| `icon`        | string | MDI icon (e.g., `mdi:home`)                                 |
+| `color`       | string | Hex color or template with `color_map`                      |
+| `status_text` | string | Status box text (supports templates)                        |
 
 ### Layout Options
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `show_pattern` | boolean | `true` | Show diagonal stripe pattern |
-| `show_status` | boolean | `true` | Show status box |
-| `show_footer` | boolean | `true` | Show footer with timestamp/button |
-| `header_height` | string | `120px` | Header section height |
-| `icon_size` | string | `54px` | Main icon size |
-| `border_radius` | string | `16px` | Card corner radius |
-| `variant` | string | `full` | Card variant: `full`, `header-only`, `compact` |
+| Option          | Type    | Default | Description                                    |
+| --------------- | ------- | ------- | ---------------------------------------------- |
+| `show_pattern`  | boolean | `true`  | Show diagonal stripe pattern                   |
+| `show_status`   | boolean | `true`  | Show status box                                |
+| `show_footer`   | boolean | `true`  | Show footer with timestamp/button              |
+| `header_height` | string  | `120px` | Header section height                          |
+| `icon_size`     | string  | `54px`  | Main icon size                                 |
+| `border_radius` | string  | `16px`  | Card corner radius                             |
+| `variant`       | string  | `full`  | Card variant: `full`, `header-only`, `compact` |
 
 ### Footer Options
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `timestamp_entity` | string | Entity for "Last Check" timestamp |
+| Option                | Type   | Description                                |
+| --------------------- | ------ | ------------------------------------------ |
+| `timestamp_entity`    | string | Entity for "Last Check" timestamp          |
 | `timestamp_attribute` | string | Attribute name (default: `last_triggered`) |
-| `button_actions` | array | Button configurations |
+| `button_actions`      | array  | Button configurations                      |
 
 ### Button Action
 
-```yaml
+```YAML
 button_actions:
   - selector: ".update-btn"
     label: "Update Status"
@@ -145,41 +145,41 @@ button_actions:
 
 ### Available Variables
 
-| Variable | Description |
-|----------|-------------|
-| `{{ state }}` | Entity state value |
-| `{{ attr.name }}` | Entity attribute |
-| `{{ states('entity_id') }}` | Another entity's state |
+| Variable                                | Description                |
+| --------------------------------------- | -------------------------- |
+| `{{ state }}`                           | Entity state value         |
+| `{{ attr.name }}`                       | Entity attribute           |
+| `{{ states('entity_id') }}`             | Another entity's state     |
 | `{{ state_attr('entity_id', 'attr') }}` | Another entity's attribute |
 
 ### Available Filters
 
-| Filter | Example | Description |
-|--------|---------|-------------|
-| `upper` | `{{ state \| upper }}` | UPPERCASE |
-| `lower` | `{{ state \| lower }}` | lowercase |
-| `capitalize` | `{{ state \| capitalize }}` | Capitalize |
-| `title` | `{{ state \| title }}` | Title Case |
-| `replace` | `{{ state \| replace('_', ' ') }}` | Replace text |
-| `default` | `{{ attr.val \| default('N/A') }}` | Fallback value |
-| `color_map` | `{{ attr.type \| color_map }}` | Map to color |
-| `timestamp_custom` | `{{ ts \| timestamp_custom('%H:%M') }}` | Format timestamp |
-| `round` | `{{ value \| round(2) }}` | Round number |
-| `int` | `{{ value \| int }}` | Convert to integer |
-| `float` | `{{ value \| float }}` | Convert to float |
+| Filter             | Example                                 | Description        |
+| ------------------ | --------------------------------------- | ------------------ |
+| `upper`            | `{{ state \| upper }}`                  | UPPERCASE          |
+| `lower`            | `{{ state \| lower }}`                  | lowercase          |
+| `capitalize`       | `{{ state \| capitalize }}`             | Capitalize         |
+| `title`            | `{{ state \| title }}`                  | Title Case         |
+| `replace`          | `{{ state \| replace('_', ' ') }}`      | Replace text       |
+| `default`          | `{{ attr.val \| default('N/A') }}`      | Fallback value     |
+| `color_map`        | `{{ attr.type \| color_map }}`          | Map to color       |
+| `timestamp_custom` | `{{ ts \| timestamp_custom('%H:%M') }}` | Format timestamp   |
+| `round`            | `{{ value \| round(2) }}`               | Round number       |
+| `int`              | `{{ value \| int }}`                    | Convert to integer |
+| `float`            | `{{ value \| float }}`                  | Convert to float   |
 
 ## Entity & Template Sensor Setup
 
-- **Recommended state values:** `PUT_OUT`, `BRING_IN`, `IDLE` (or any domain-specific states you map in `rules`).
-- **Recommended attributes:**
-  - `target_bin`: short key for the color/type (e.g., `blue`, `green`, `purple`, `black`).
-  - `friendly_name_text`: display-friendly name (e.g., "Paper", "Compost").
-  - Optional: `status_reason`, `next_collection`, `source` (e.g., `schedule`, `vision`, `manual`).
-- **Color mapping:** Define `color_map` in the card config and refer to it with `{{ attr.target_bin \| color_map }}` inside `rules`.
+* **Recommended state values:** `PUT_OUT`, `BRING_IN`, `IDLE` (or any domain-specific states you map in `rules`).
+* **Recommended attributes:**
+  * `target_bin`: short key for the color/type (e.g., `blue`, `green`, `purple`, `black`).
+  * `friendly_name_text`: display-friendly name (e.g., "Paper", "Compost").
+  * Optional: `status_reason`, `next_collection`, `source` (e.g., `schedule`, `vision`, `manual`).
+* **Color mapping:** Define `color_map` in the card config and refer to it with `{{ attr.target_bin \| color_map }}` inside `rules`.
 
 ### Color mapping (card config)
 
-```yaml
+```YAML
 type: custom:status-banner-card
 entity: sensor.garbage_dashboard_status
 
@@ -193,7 +193,7 @@ color_map:
 
 ## Simple schedule-driven template sensor
 
-```yaml
+```YAML
 template:
   - sensor:
       - name: Garbage Dashboard Status
@@ -235,7 +235,7 @@ template:
 
 ### Card config (simple)
 
-```yaml
+```YAML
 type: custom:status-banner-card
 entity: sensor.garbage_dashboard_status
 
@@ -272,7 +272,7 @@ default:
 
 Use the provided automation (LLM vision with multi-day memory) to update `input_text.bin_status_memory` and rely on schedule sensors. The template sensor below prioritizes memory when the bin is out, then schedule:
 
-```yaml
+```YAML
 template:
   - sensor:
       - name: Garbage Dashboard Status
@@ -326,7 +326,7 @@ template:
 
 ### Card config (advanced vision + memory)
 
-```yaml
+```YAML
 type: custom:status-banner-card
 entity: sensor.garbage_dashboard_status
 
@@ -363,16 +363,17 @@ default:
 ```
 
 Notes:
-- The automation should write the detected color to `input_text.bin_status_memory` when a bin stays out, and clear it once returned.
-- The LLM vision step counts bins by color; keep color keys aligned with `color_map` and the automation’s mapping.
-- Floodlight on/off and multi-camera shots improve detection quality.
-- Use `mode: parallel` with a `max` guard (as in the provided automation) to allow manual tests without blocking scheduled runs.
+
+* The automation should write the detected color to `input_text.bin_status_memory` when a bin stays out, and clear it once returned.
+* The LLM vision step counts bins by color; keep color keys aligned with `color_map` and the automation’s mapping.
+* Floodlight on/off and multi-camera shots improve detection quality.
+* Use `mode: parallel` with a `max` guard (as in the provided automation) to allow manual tests without blocking scheduled runs.
 
 ## Examples
 
 ### EV Charging Status
 
-```yaml
+```YAML
 type: custom:status-banner-card
 entity: input_select.ev_ai_action
 
@@ -402,7 +403,7 @@ timestamp_entity: automation.ev_charging_ai_energy_strategist
 
 ### Alarm Status
 
-```yaml
+```YAML
 type: custom:status-banner-card
 entity: alarm_control_panel.home
 
@@ -435,7 +436,7 @@ default:
 
 ### Compact Variant
 
-```yaml
+```YAML
 type: custom:status-banner-card
 entity: sensor.cpu_temperature
 variant: compact
@@ -459,9 +460,157 @@ default:
   color: "#F44336"
 ```
 
+## Additional Ideas for Use-Cases
+
+This card excels at displaying "Call to Action" information—situations where the user needs to know something immediately or do something specific. Because of the distinct banner style and the ability to map colors to urgency, it works best for binary or ternary states (Good/Warning/Critical).
+
+### 🏠 Home Maintenance & Chores
+
+* **Washer/Dryer Status**
+
+  * **State:** `Running` / `Finished` / `Idle`
+  * **Banner:** "LAUNDRY COMPLETE" (Green) vs "WASHING" (Blue)
+  * **Subtitle:** "Cycle finished 10m ago" or "Time remaining: 15m"
+  * **Status Text:** "Please move clothes to dryer."
+
+- **Dishwasher Cycle**
+
+  * **State:** `Clean` / `Dirty` / `Running`
+  * **Banner:** "DISHES CLEAN" (Green) vs "RUNNING" (Blue)
+  * **Subtitle:** "Ready to empty"
+  * **Status Text:** "Cycle finished at 19:30."
+- **HVAC Filter Replacement**
+
+  * **State:** `OK` / `Replace Soon` / `Overdue`
+  * **Banner:** "FILTER REPLACE" (Red) vs "AIR SYSTEM OK" (Green)
+  * **Subtitle:** "Runtime: 300 hours"
+  * **Status Text:** "Airflow restriction detected. Order generic size 20x20x1."
+- **Robotic Vacuum**
+
+  * **State:** `Docked` / `Cleaning` / `Stuck` / `Bin Full`
+  * **Banner:** "ROBOROCK STUCK" (Red) or "CLEANING" (Blue)
+  * **Subtitle:** "Location: Living Room"
+  * **Status Text:** "Main brush entangled" or "Returning to dock to empty bin."
+
+### 🛡️ Security & Safety
+
+* **Perimeter/Window Monitor**
+
+  * **State:** `Secure` / `Open` / `Raining & Open`
+
+  - **Banner:** "CLOSE WINDOWS" (Red) vs "HOUSE SECURE" (Green)
+  - **Subtitle:** "Rain detected"
+  - **Status Text:** "Master Bedroom window is currently open while it is raining."
+
+- **Garage Door Monitor**
+
+  * **State:** `Closed` / `Open < 10m` / `Left Open`
+  * **Banner:** "GARAGE LEFT OPEN" (Red/Stripe)
+  * **Subtitle:** "Open for 45 minutes"
+  * **Status Text:** "No motion detected in garage. Tap to close."
+- **Smart Lock / Guest Access**
+
+  * **State:** `Locked` / `Unlocked` / `Jammed`
+  * **Banner:** "FRONT DOOR UNLOCKED" (Orange)
+  * **Subtitle:** "Auto-lock disabled"
+  * **Status Text:** "Unlocked by 'Cleaner Code' at 10:00 AM."
+- **Leak Detection System**
+
+  * **State:** `Dry` / `Leak Detected`
+  * **Banner:** "WATER LEAK DETECTED" (Red/Stripe)
+  * **Subtitle:** "Location: Basement"
+  * **Status Text:** "Main water valve has been shut off automatically."
+
+### 🌿 Environment & Health
+
+* **Air Quality (CO2/PM2.5)**
+
+  * **State:** `Good` / `Moderate` / `Unhealthy`
+  * **Banner:** "AIR QUALITY POOR" (Purple)
+  * **Subtitle:** "CO2: 1200ppm"
+  * **Status Text:** "Ventilation required. Open a window or boost HVAC fan."
+
+- **Plant Care (Aggregated)**
+
+  * **State:** `Thriving` / `Thirsty` / `Fertilize`
+  * **Banner:** "WATER PLANTS" (Blue)
+  * **Subtitle:** "3 Plants Critical"
+  * **Status Text:** "Peace Lily and Monstera moisture levels below 15%."
+- **Pollen/Allergy Forecast**
+
+  * **State:** `Low` / `High` / `Extreme`
+  * **Banner:** "HIGH POLLEN ALERT" (Orange)
+  * **Subtitle:** "Tree Pollen: High"
+  * **Status Text:** "Keep windows closed today. Air purifier set to High."
+
+### ⚡ Energy & Network
+
+* **Grid Power Status (Solar)**
+
+  * **State:** `Importing` / `Exporting` / `Peak Rate`
+  * **Banner:** "FREE ENERGY" (Green) vs "PEAK RATE" (Red)
+  * **Subtitle:** "Solar Export: 3.2kW"
+  * **Status Text:** "Great time to run the dishwasher or charge the car."
+
+- **Home Battery Backup**
+
+  * **State:** `Charging` / `Discharging` / `Grid Outage`
+  * **Banner:** "RUNNING ON BATTERY" (Orange/Stripe)
+  * **Subtitle:** "Grid Power Lost"
+  * **Status Text:** "Est. runtime: 4 hours. Heavy loads (AC) disabled."
+- **Network/Server Health**
+
+  * **State:** `Online` / `Offline` / `Degraded`
+  * **Banner:** "INTERNET DOWN" (Red)
+  * **Subtitle:** "WAN IP Unreachable"
+  * **Status Text:** "UDM Pro has been offline for 5 minutes. Attempting reboot.
+- 3D Printer Status
+
+  * **State:** `Printing` / `Finished` / `Error`
+  * **Banner:** "PRINT COMPLETE" (Green)
+  * **Subtitle:** "File: Bracket\_v2.gcode"
+  * **Status Text:** "Bed cooled to 30°C. Safe to remove object."
+
+### 👨‍👩‍👧 Family & Lifestyle
+
+* **Commute Traffic**
+
+  * **State:** `Clear` / `Moderate` / `Heavy`
+  * **Banner:** "HEAVY TRAFFIC" (Red)
+  * **Subtitle:** "+25 mins delay"
+  * **Status Text:** "Accident on I-95. Suggest taking alternate route via Highway 1."
+* **Mail/Package Delivery**
+
+  * **State:** `Empty` / `Mail Arrived` / `Package Retrieved`
+  * **Banner:** "YOU'VE GOT MAIL" (Yellow)
+  * **Subtitle:** "Vibration detected"
+  * **Status Text:** "Mailbox opened at 14:05. Not yet retrieved."
+* **Family Presence / House Mode**
+
+  * **State:** `Home` / `Away` / `Vacation` / `Guest`
+  * **Banner:** "GUEST MODE ACTIVE" (Purple)
+  * **Subtitle:** "Automations Paused"
+  * **Status Text:** "Lighting motion sensors disabled. Alarm auto-arm disabled."
+* **Medication/Vitamin Reminder**
+
+  * **State:** `Taken` / `Due` / `Missed`
+  * **Banner:** "TAKE MEDICATION" (Red)
+  * **Subtitle:** "Morning Dose"
+  * **Status Text:** "Button last pressed yesterday. Please acknowledge."
+* **Groceries / Shopping List**
+
+  * **State:** `Empty` / `Items Pending`
+  * **Banner:** "SHOPPING NEEDED" (Blue)
+  * **Subtitle:** "5 items on list"
+  * **Status Text:** "Milk, Eggs, Bread. Tap to view full Todoist list."
+
+#### Tip for Implementation
+
+For many of these, you will want to create a **Template Sensor** (like we did for the garbage bin in the example) to aggregate logic. For example, the **"Perimeter Monitor"** sensor would look at *all* windows and the weather state to determine if the state is `SECURE`, `OPEN`, or `CRITICAL_RAIN`.
+
 ## Development
 
-```bash
+```Shell
 # Install dependencies
 npm install
 
