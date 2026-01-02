@@ -358,6 +358,7 @@ export class StatusBannerCardEditor extends LitElement {
   private _renderLayoutSection(): TemplateResult {
     const accentWidth = this._config.accent_width ?? 60;
     const accentHeight = this._config.accent_height ?? 100;
+    const statusOpacity = this._config.status_opacity ?? 90;
 
     return html`
       <div class="section">
@@ -437,12 +438,35 @@ export class StatusBannerCardEditor extends LitElement {
           ></ha-switch>
         </div>
 
-        <ha-textfield
-          .value=${this._config.status_label || 'Status'}
-          .label=${'Status Label (Status/Strategy/Whatever)'}
-          @input=${(e: Event) =>
-            this._valueChanged('status_label', (e.target as HTMLInputElement).value)}
-        ></ha-textfield>
+        ${this._config.show_status !== false
+          ? html`
+              <ha-textfield
+                .value=${this._config.status_label || 'Status'}
+                .label=${'Status Label (Status/Strategy/Whatever)'}
+                @input=${(e: Event) =>
+                  this._valueChanged('status_label', (e.target as HTMLInputElement).value)}
+              ></ha-textfield>
+
+              <div class="slider-row">
+                <label>Status Box Opacity: ${statusOpacity}%</label>
+                <div class="slider-container">
+                  <span class="slider-label">0%</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    .value=${String(statusOpacity)}
+                    @input=${(e: Event) =>
+                      this._valueChanged(
+                        'status_opacity',
+                        Number((e.target as HTMLInputElement).value)
+                      )}
+                  />
+                  <span class="slider-label">100%</span>
+                </div>
+              </div>
+            `
+          : nothing}
 
         <div class="toggle-row">
           <span>Show Footer</span>

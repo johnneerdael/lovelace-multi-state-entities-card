@@ -75,6 +75,9 @@ export interface StatusBannerCardConfig {
 
   /** Accent triangle height percentage of full card (default: 100) */
   accent_height?: number;
+
+  /** Status box background opacity (0-100, default: 90) */
+  status_opacity?: number;
 }
 
 /**

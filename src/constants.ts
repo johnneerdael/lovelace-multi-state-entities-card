@@ -16,6 +16,7 @@ export const DEFAULT_CONFIG: Partial<StatusBannerCardConfig> = {
   pattern_size: 20,
   accent_width: 60,
   accent_height: 100,
+  status_opacity: 90,
   color_map: {
     blue: '#2196F3',
     green: '#4CAF50',

@@ -8,6 +8,28 @@ A flexible Home Assistant Lovelace card with a distinctive banner design for dis
 
 ![1.00](docs/preview.png)
 
+## What's New
+
+### v1.1.3 - Status Box Transparency
+- **Status Box Opacity** - Configurable transparency (0-100%) lets the accent show through
+- **Fixed Accent Flow** - The diagonal accent now properly extends behind body and footer sections
+
+### v1.1.2 - Full Card Accent
+- **Accent Spans Full Card** - The diagonal color accent now flows from header through body to footer
+- **Accent Width Control** - Adjust the triangle width (30-100% of card width)
+- **Accent Height Control** - Extend beyond card boundaries (25-150%) for dramatic effects
+
+### v1.1.1 - Typography & Pattern Control
+- **Per-Rule Font Sizes** - Customize title and subtitle sizes for each state rule
+- **Pattern Size Control** - Adjust diagonal stripe density (in pixels)
+- **Custom Status Labels** - Change "Status:" to any label (Strategy, Action, etc.)
+
+### v1.1.0 - Visual Editor
+- **Full GUI Configuration** - Complete visual editor with sliders and toggles
+- **Live Preview** - See changes instantly as you configure
+
+> *This card started as a personal project but has evolved into a highly customizable component. Every visual aspect can now be tweaked to match your dashboard style.*
+
 ## Features
 
 * **Distinctive Banner Design** - Angled color accent with optional diagonal stripe pattern
@@ -113,18 +135,20 @@ Each rule in the `rules` array can have:
 
 ### Layout Options
 
-| Option          | Type    | Default | Description                                         |
-| --------------- | ------- | ------- | --------------------------------------------------- |
-| `show_pattern`  | boolean | `true`  | Show diagonal stripe pattern                        |
-| `pattern_size`  | number  | `20`    | Pattern stripe size in pixels                       |
-| `accent_width`  | number  | `60`    | Accent triangle width (30-100% of card width)       |
-| `accent_height` | number  | `100`   | Accent triangle height (25-150% of full card)       |
-| `show_status`   | boolean | `true`  | Show status box                                     |
-| `show_footer`   | boolean | `true`  | Show footer with timestamp/button                   |
-| `header_height` | string  | `120px` | Header section height                               |
-| `icon_size`     | string  | `54px`  | Main icon size                                      |
-| `border_radius` | string  | `16px`  | Card corner radius                                  |
-| `variant`       | string  | `full`  | Card variant: `full`, `header-only`, `compact`      |
+| Option           | Type    | Default | Description                                         |
+| ---------------- | ------- | ------- | --------------------------------------------------- |
+| `show_pattern`   | boolean | `true`  | Show diagonal stripe pattern                        |
+| `pattern_size`   | number  | `20`    | Pattern stripe size in pixels                       |
+| `accent_width`   | number  | `60`    | Accent triangle width (30-100% of card width)       |
+| `accent_height`  | number  | `100`   | Accent triangle height (25-150% of full card)       |
+| `show_status`    | boolean | `true`  | Show status box                                     |
+| `status_opacity` | number  | `90`    | Status box background opacity (0-100%)              |
+| `status_label`   | string  | `Status`| Label shown before status text                      |
+| `show_footer`    | boolean | `true`  | Show footer with timestamp/button                   |
+| `header_height`  | string  | `120px` | Header section height                               |
+| `icon_size`      | string  | `54px`  | Main icon size                                      |
+| `border_radius`  | string  | `16px`  | Card corner radius                                  |
+| `variant`        | string  | `full`  | Card variant: `full`, `header-only`, `compact`      |
 
 ### Footer Options
 

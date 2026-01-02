@@ -119,16 +119,25 @@ export const styles = css`
     position: relative;
     z-index: 1;
     padding: 0 24px;
-    background: var(--sbc-card-bg);
   }
 
   .status-box {
+    position: relative;
     font-size: 1rem;
     line-height: 1.6;
     padding: 16px;
-    background: var(--sbc-secondary-bg);
     border-radius: 12px;
     border: 1px solid var(--sbc-divider);
+  }
+
+  .status-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--sbc-secondary-bg);
+    opacity: var(--status-opacity, 0.9);
+    border-radius: inherit;
+    z-index: -1;
   }
 
   .status-label {
@@ -151,7 +160,6 @@ export const styles = css`
     justify-content: space-between;
     align-items: center;
     padding: 16px 24px;
-    background: var(--sbc-card-bg);
   }
 
   .timestamp {

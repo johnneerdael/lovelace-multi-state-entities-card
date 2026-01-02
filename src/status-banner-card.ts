@@ -215,9 +215,11 @@ export class StatusBannerCard extends LitElement {
   }
 
   private _renderStatusBox(display: DisplayData): TemplateResult {
+    const statusOpacity = (this._config.status_opacity ?? 90) / 100;
+
     return html`
       <div class="body">
-        <div class="status-box">
+        <div class="status-box" style="--status-opacity: ${statusOpacity}">
           <span class="status-label" style="color: ${display.color}">${display.statusLabel}:</span>
           <span class="status-text">${display.statusText}</span>
         </div>
@@ -370,7 +372,7 @@ window.customCards.push({
 
 // Log version info
 console.info(
-  `%c  STATUS-BANNER-CARD  %c  v1.1.2  `,
+  `%c  STATUS-BANNER-CARD  %c  v1.1.3  `,
   'color: white; background: #2196F3; font-weight: bold;',
   'color: #2196F3; background: white; font-weight: bold;'
 );
