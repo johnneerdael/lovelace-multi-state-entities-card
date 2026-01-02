@@ -2,7 +2,7 @@
 
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 [![GitHub Release](https://img.shields.io/github/release/johnneerdael/status-banner-card.svg)](https://github.com/johnneerdael/status-banner-card/releases)
-[![License](https://img.shields.io/github/license/johnneerdael/status-banner-card.svg)](LICENSE)
+![GitHub License](https://img.shields.io/github/license/johnneerdael/status-banner-card?link=https%3A%2F%2Fgithub.com%2Fjohnneerdael%2Fstatus-banner-card%2Fblob%2Fmain%2FLICENSE)
 
 A flexible Home Assistant Lovelace card with a distinctive banner design for displaying entity states. Perfect for garbage collection schedules, EV charging status, alarm systems, or any status-driven automation.
 
