@@ -168,12 +168,22 @@ export class StatusBannerCard extends LitElement {
     const showStatus = this._config.show_status !== false && variant !== 'header-only';
     const showFooter = this._config.show_footer !== false && variant !== 'header-only';
 
+    // Accent settings
+    const showPattern = this._config.show_pattern !== false;
+    const patternSize = this._config.pattern_size ?? 20;
+    const accentWidth = this._config.accent_width ?? 60;
+    const accentHeight = this._config.accent_height ?? 100;
+
     return html`
       <ha-card @click=${this._handleCardClick}>
         <div
           class="card-container ${variant}"
           style="--border-radius: ${this._config.border_radius}"
         >
+          <div
+            class="card-accent ${showPattern ? 'with-pattern' : ''}"
+            style="--accent-color: ${display.color}; --accent-width: ${accentWidth}%; --accent-height: ${accentHeight}%; --pattern-size: ${patternSize}px"
+          ></div>
           ${this._renderHeader(display)}
           ${showStatus && display.statusText ? this._renderStatusBox(display) : nothing}
           ${showFooter ? this._renderFooter(display) : nothing}
@@ -183,17 +193,8 @@ export class StatusBannerCard extends LitElement {
   }
 
   private _renderHeader(display: DisplayData): TemplateResult {
-    const showPattern = this._config.show_pattern !== false;
-    const patternSize = this._config.pattern_size ?? 20;
-    const accentHeight = this._config.accent_height ?? 100;
-
     return html`
       <div class="header" style="--header-height: ${this._config.header_height}">
-        <div
-          class="header-accent ${showPattern ? 'with-pattern' : ''}"
-          style="--accent-color: ${display.color}; --pattern-size: ${patternSize}px; --accent-height: ${accentHeight}%"
-        ></div>
-
         <div class="header-content">
           <div class="header-text" style="
             ${display.titleFontSize ? `--title-font-size: ${display.titleFontSize};` : ''}
@@ -369,7 +370,7 @@ window.customCards.push({
 
 // Log version info
 console.info(
-  `%c  STATUS-BANNER-CARD  %c  v1.1.1  `,
+  `%c  STATUS-BANNER-CARD  %c  v1.1.2  `,
   'color: white; background: #2196F3; font-weight: bold;',
   'color: #2196F3; background: white; font-weight: bold;'
 );

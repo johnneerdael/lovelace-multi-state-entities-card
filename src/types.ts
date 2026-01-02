@@ -70,7 +70,10 @@ export interface StatusBannerCardConfig {
   /** Pattern stripe size in pixels (default: 20) */
   pattern_size?: number;
 
-  /** Accent triangle height percentage (default: 100 = full header height) */
+  /** Accent triangle width percentage (default: 60) */
+  accent_width?: number;
+
+  /** Accent triangle height percentage of full card (default: 100) */
   accent_height?: number;
 }
 

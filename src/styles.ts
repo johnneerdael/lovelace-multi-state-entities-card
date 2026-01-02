@@ -18,6 +18,7 @@ export const styles = css`
   }
 
   .card-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     border-radius: var(--border-radius, 16px);
@@ -27,30 +28,22 @@ export const styles = css`
   }
 
   /* ═══════════════════════════════════════════════════════════════
-     HEADER
+     CARD ACCENT (spans entire card)
      ═══════════════════════════════════════════════════════════════ */
 
-  .header {
-    position: relative;
-    min-height: var(--header-height, 120px);
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-
-  .header-accent {
+  .card-accent {
     position: absolute;
     top: 0;
     left: 0;
-    width: 60%;
-    height: 100%;
+    width: var(--accent-width, 60%);
+    height: var(--accent-height, 100%);
     background-color: var(--accent-color);
-    clip-path: polygon(0 0, 0% var(--accent-height, 100%), 100% 0);
+    clip-path: polygon(0 0, 0% 100%, 100% 0);
     z-index: 0;
     transition: background-color 0.3s ease;
   }
 
-  .header-accent.with-pattern {
+  .card-accent.with-pattern {
     background-image: linear-gradient(
       45deg,
       rgba(255, 255, 255, 0.15) 25%,
@@ -62,6 +55,19 @@ export const styles = css`
       transparent
     );
     background-size: var(--pattern-size, 20px) var(--pattern-size, 20px);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════════════════════════ */
+
+  .header {
+    position: relative;
+    z-index: 1;
+    min-height: var(--header-height, 120px);
+    display: flex;
+    align-items: center;
+    width: 100%;
   }
 
   .header-content {
@@ -110,6 +116,8 @@ export const styles = css`
      ═══════════════════════════════════════════════════════════════ */
 
   .body {
+    position: relative;
+    z-index: 1;
     padding: 0 24px;
     background: var(--sbc-card-bg);
   }
@@ -136,6 +144,8 @@ export const styles = css`
      ═══════════════════════════════════════════════════════════════ */
 
   .footer {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -356,6 +356,7 @@ export class StatusBannerCardEditor extends LitElement {
   // ─────────────────────────────────────────────────────────────
 
   private _renderLayoutSection(): TemplateResult {
+    const accentWidth = this._config.accent_width ?? 60;
     const accentHeight = this._config.accent_height ?? 100;
 
     return html`
@@ -390,12 +391,31 @@ export class StatusBannerCardEditor extends LitElement {
           : nothing}
 
         <div class="slider-row">
-          <label>Accent Height: ${accentHeight}%</label>
+          <label>Accent Width: ${accentWidth}%</label>
           <div class="slider-container">
-            <span class="slider-label">50%</span>
+            <span class="slider-label">30%</span>
             <input
               type="range"
-              min="50"
+              min="30"
+              max="100"
+              .value=${String(accentWidth)}
+              @input=${(e: Event) =>
+                this._valueChanged(
+                  'accent_width',
+                  Number((e.target as HTMLInputElement).value)
+                )}
+            />
+            <span class="slider-label">100%</span>
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <label>Accent Height: ${accentHeight}%</label>
+          <div class="slider-container">
+            <span class="slider-label">25%</span>
+            <input
+              type="range"
+              min="25"
               max="150"
               .value=${String(accentHeight)}
               @input=${(e: Event) =>

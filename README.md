@@ -14,7 +14,7 @@ A flexible Home Assistant Lovelace card with a distinctive banner design for dis
 * **Fully Configurable** - Rule-based state-to-display mapping
 * **Template Support** - Use `{{ state }}`, `{{ attr.name }}`, filters, and more
 * **Typography Control** - Per-rule font size customization for title/subtitle
-* **Pattern Customization** - Adjustable stripe size and accent triangle height
+* **Accent Customization** - Adjustable width, height, and stripe size (spans full card)
 * **Action Support** - Tap actions, button actions, service calls
 * **Color Mapping** - Define color palettes for dynamic theming
 * **Responsive** - Works on all screen sizes
@@ -113,17 +113,18 @@ Each rule in the `rules` array can have:
 
 ### Layout Options
 
-| Option          | Type    | Default | Description                                      |
-| --------------- | ------- | ------- | ------------------------------------------------ |
-| `show_pattern`  | boolean | `true`  | Show diagonal stripe pattern                     |
-| `pattern_size`  | number  | `20`    | Pattern stripe size in pixels                    |
-| `accent_height` | number  | `100`   | Accent triangle height (50-150%)                 |
-| `show_status`   | boolean | `true`  | Show status box                                  |
-| `show_footer`   | boolean | `true`  | Show footer with timestamp/button                |
-| `header_height` | string  | `120px` | Header section height                            |
-| `icon_size`     | string  | `54px`  | Main icon size                                   |
-| `border_radius` | string  | `16px`  | Card corner radius                               |
-| `variant`       | string  | `full`  | Card variant: `full`, `header-only`, `compact`   |
+| Option          | Type    | Default | Description                                         |
+| --------------- | ------- | ------- | --------------------------------------------------- |
+| `show_pattern`  | boolean | `true`  | Show diagonal stripe pattern                        |
+| `pattern_size`  | number  | `20`    | Pattern stripe size in pixels                       |
+| `accent_width`  | number  | `60`    | Accent triangle width (30-100% of card width)       |
+| `accent_height` | number  | `100`   | Accent triangle height (25-150% of full card)       |
+| `show_status`   | boolean | `true`  | Show status box                                     |
+| `show_footer`   | boolean | `true`  | Show footer with timestamp/button                   |
+| `header_height` | string  | `120px` | Header section height                               |
+| `icon_size`     | string  | `54px`  | Main icon size                                      |
+| `border_radius` | string  | `16px`  | Card corner radius                                  |
+| `variant`       | string  | `full`  | Card variant: `full`, `header-only`, `compact`      |
 
 ### Footer Options
 
@@ -466,12 +467,13 @@ default:
   color: "#F44336"
 ```
 
-### Custom Typography & Pattern
+### Custom Typography & Accent
 
 ```YAML
 type: custom:status-banner-card
 entity: sensor.important_alert
-accent_height: 75
+accent_width: 50
+accent_height: 120
 pattern_size: 15
 
 rules:
