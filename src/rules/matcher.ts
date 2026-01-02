@@ -106,8 +106,6 @@ export function resolveDisplayData(
     statusText: parseTemplate(source.status_text || '', context),
     statusLabel: parseTemplate(statusLabelConfig || 'Status', context),
     titleFontSize: (source as StateRule).title_font_size,
-    titleFontWeight: (source as StateRule).title_font_weight,
     subtitleFontSize: (source as StateRule).subtitle_font_size,
-    subtitleFontWeight: (source as StateRule).subtitle_font_weight,
   };
 }

@@ -45,14 +45,14 @@ export const styles = css`
     width: 60%;
     height: 100%;
     background-color: var(--accent-color);
-    clip-path: polygon(0 0, 0% 100%, 100% 0);
+    clip-path: polygon(0 0, 0% var(--accent-height, 100%), 100% 0);
     z-index: 0;
     transition: background-color 0.3s ease;
   }
 
   .header-accent.with-pattern {
     background-image: linear-gradient(
-      var(--pattern-angle, 45deg),
+      45deg,
       rgba(255, 255, 255, 0.15) 25%,
       transparent 25%,
       transparent 50%,
@@ -84,7 +84,7 @@ export const styles = css`
 
   .title {
     font-size: var(--title-font-size, 1.5rem);
-    font-weight: var(--title-font-weight, 900);
+    font-weight: 900;
     text-transform: uppercase;
     line-height: 1;
     letter-spacing: 0.05em;
@@ -94,7 +94,7 @@ export const styles = css`
 
   .subtitle {
     font-size: var(--subtitle-font-size, 1.125rem);
-    font-weight: var(--subtitle-font-weight, 500);
+    font-weight: 500;
     opacity: 0.6;
     margin-top: 4px;
     color: var(--sbc-secondary-text);

@@ -145,26 +145,12 @@ export class StatusBannerCardEditor extends LitElement {
             this._updateRule(index, 'title', (e.target as HTMLInputElement).value)}
         ></ha-textfield>
 
-        <div class="font-controls">
-          <ha-textfield
-            .value=${rule.title_font_size || ''}
-            .label=${'Title Font Size (e.g., 1.5rem, 24px)'}
-            @input=${(e: Event) =>
-              this._updateRule(index, 'title_font_size', (e.target as HTMLInputElement).value)}
-          ></ha-textfield>
-          <ha-select
-            .value=${rule.title_font_weight || ''}
-            .label=${'Title Font Weight'}
-            @selected=${(e: CustomEvent) =>
-              this._updateRule(index, 'title_font_weight', (e.target as HTMLSelectElement).value)}
-          >
-            <mwc-list-item value="">Default (Black)</mwc-list-item>
-            <mwc-list-item value="400">Normal (400)</mwc-list-item>
-            <mwc-list-item value="500">Medium (500)</mwc-list-item>
-            <mwc-list-item value="700">Bold (700)</mwc-list-item>
-            <mwc-list-item value="900">Black (900)</mwc-list-item>
-          </ha-select>
-        </div>
+        <ha-textfield
+          .value=${rule.title_font_size || ''}
+          .label=${'Title Font Size (e.g., 1.5rem, 24px)'}
+          @input=${(e: Event) =>
+            this._updateRule(index, 'title_font_size', (e.target as HTMLInputElement).value)}
+        ></ha-textfield>
 
         <ha-textfield
           .value=${rule.subtitle || ''}
@@ -173,26 +159,12 @@ export class StatusBannerCardEditor extends LitElement {
             this._updateRule(index, 'subtitle', (e.target as HTMLInputElement).value)}
         ></ha-textfield>
 
-        <div class="font-controls">
-          <ha-textfield
-            .value=${rule.subtitle_font_size || ''}
-            .label=${'Subtitle Font Size (e.g., 1rem, 16px)'}
-            @input=${(e: Event) =>
-              this._updateRule(index, 'subtitle_font_size', (e.target as HTMLInputElement).value)}
-          ></ha-textfield>
-          <ha-select
-            .value=${rule.subtitle_font_weight || ''}
-            .label=${'Subtitle Font Weight'}
-            @selected=${(e: CustomEvent) =>
-              this._updateRule(index, 'subtitle_font_weight', (e.target as HTMLSelectElement).value)}
-          >
-            <mwc-list-item value="">Default (Medium)</mwc-list-item>
-            <mwc-list-item value="400">Normal (400)</mwc-list-item>
-            <mwc-list-item value="500">Medium (500)</mwc-list-item>
-            <mwc-list-item value="700">Bold (700)</mwc-list-item>
-            <mwc-list-item value="900">Black (900)</mwc-list-item>
-          </ha-select>
-        </div>
+        <ha-textfield
+          .value=${rule.subtitle_font_size || ''}
+          .label=${'Subtitle Font Size (e.g., 1rem, 16px)'}
+          @input=${(e: Event) =>
+            this._updateRule(index, 'subtitle_font_size', (e.target as HTMLInputElement).value)}
+        ></ha-textfield>
 
         <ha-icon-picker
           .hass=${this.hass}
@@ -384,7 +356,7 @@ export class StatusBannerCardEditor extends LitElement {
   // ─────────────────────────────────────────────────────────────
 
   private _renderLayoutSection(): TemplateResult {
-    const patternRotation = this._config.pattern_rotation ?? 0;
+    const accentHeight = this._config.accent_height ?? 100;
 
     return html`
       <div class="section">
@@ -404,25 +376,6 @@ export class StatusBannerCardEditor extends LitElement {
 
         ${this._config.show_pattern !== false
           ? html`
-              <div class="slider-row">
-                <label>Pattern Rotation: ${patternRotation}%</label>
-                <div class="slider-container">
-                  <span class="slider-label">-100%</span>
-                  <input
-                    type="range"
-                    min="-100"
-                    max="100"
-                    .value=${String(patternRotation)}
-                    @input=${(e: Event) =>
-                      this._valueChanged(
-                        'pattern_rotation',
-                        Number((e.target as HTMLInputElement).value)
-                      )}
-                  />
-                  <span class="slider-label">+100%</span>
-                </div>
-              </div>
-
               <ha-textfield
                 type="number"
                 .value=${String(this._config.pattern_size ?? 20)}
@@ -435,6 +388,25 @@ export class StatusBannerCardEditor extends LitElement {
               ></ha-textfield>
             `
           : nothing}
+
+        <div class="slider-row">
+          <label>Accent Height: ${accentHeight}%</label>
+          <div class="slider-container">
+            <span class="slider-label">50%</span>
+            <input
+              type="range"
+              min="50"
+              max="150"
+              .value=${String(accentHeight)}
+              @input=${(e: Event) =>
+                this._valueChanged(
+                  'accent_height',
+                  Number((e.target as HTMLInputElement).value)
+                )}
+            />
+            <span class="slider-label">150%</span>
+          </div>
+        </div>
 
         <div class="toggle-row">
           <span>Show Status Box</span>
@@ -785,19 +757,6 @@ export class StatusBannerCardEditor extends LitElement {
         justify-content: space-between;
         align-items: center;
         padding: 8px 0;
-      }
-
-      /* Font Controls */
-      .font-controls {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-bottom: 12px;
-      }
-
-      .font-controls ha-textfield,
-      .font-controls ha-select {
-        margin-bottom: 0;
       }
 
       /* Slider Row */
