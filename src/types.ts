@@ -43,6 +43,9 @@ export interface StatusBannerCardConfig {
   /** Button actions - matched by CSS selector */
   button_actions?: ButtonAction[];
 
+  /** Show the diagonal color accent */
+  show_accent?: boolean;
+
   /** Show diagonal stripe pattern on header accent */
   show_pattern?: boolean;
 

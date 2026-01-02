@@ -169,6 +169,7 @@ export class StatusBannerCard extends LitElement {
     const showFooter = this._config.show_footer !== false && variant !== 'header-only';
 
     // Accent settings
+    const showAccent = this._config.show_accent !== false;
     const showPattern = this._config.show_pattern !== false;
     const patternSize = this._config.pattern_size ?? 20;
     const accentWidth = this._config.accent_width ?? 60;
@@ -180,10 +181,12 @@ export class StatusBannerCard extends LitElement {
           class="card-container ${variant}"
           style="--border-radius: ${this._config.border_radius}"
         >
-          <div
-            class="card-accent ${showPattern ? 'with-pattern' : ''}"
-            style="--accent-color: ${display.color}; --accent-width: ${accentWidth}%; --accent-height: ${accentHeight}%; --pattern-size: ${patternSize}px"
-          ></div>
+          ${showAccent
+            ? html`<div
+                class="card-accent ${showPattern ? 'with-pattern' : ''}"
+                style="--accent-color: ${display.color}; --accent-width: ${accentWidth}%; --accent-height: ${accentHeight}%; --pattern-size: ${patternSize}px"
+              ></div>`
+            : nothing}
           ${this._renderHeader(display)}
           ${showStatus && display.statusText ? this._renderStatusBox(display) : nothing}
           ${showFooter ? this._renderFooter(display) : nothing}
@@ -372,7 +375,7 @@ window.customCards.push({
 
 // Log version info
 console.info(
-  `%c  STATUS-BANNER-CARD  %c  v1.1.3  `,
+  `%c  STATUS-BANNER-CARD  %c  v1.1.4  `,
   'color: white; background: #2196F3; font-weight: bold;',
   'color: #2196F3; background: white; font-weight: bold;'
 );

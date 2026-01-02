@@ -4,6 +4,7 @@ import { StatusBannerCardConfig } from './types';
  * Default configuration values
  */
 export const DEFAULT_CONFIG: Partial<StatusBannerCardConfig> = {
+  show_accent: true,
   show_pattern: true,
   show_status: true,
   show_footer: true,

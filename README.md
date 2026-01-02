@@ -10,6 +10,10 @@ A flexible Home Assistant Lovelace card with a distinctive banner design for dis
 
 ## What's New
 
+### v1.1.4 - Accent Toggle
+- **Show/Hide Accent** - New toggle to completely disable the diagonal accent
+- **Sliders start at 0%** - Width and height sliders now go from 0-100/150% for full control
+
 ### v1.1.3 - Status Box Transparency
 - **Status Box Opacity** - Configurable transparency (0-100%) lets the accent show through
 - **Fixed Accent Flow** - The diagonal accent now properly extends behind body and footer sections
@@ -137,10 +141,11 @@ Each rule in the `rules` array can have:
 
 | Option           | Type    | Default | Description                                         |
 | ---------------- | ------- | ------- | --------------------------------------------------- |
+| `show_accent`    | boolean | `true`  | Show the diagonal color accent                      |
 | `show_pattern`   | boolean | `true`  | Show diagonal stripe pattern                        |
 | `pattern_size`   | number  | `20`    | Pattern stripe size in pixels                       |
-| `accent_width`   | number  | `60`    | Accent triangle width (30-100% of card width)       |
-| `accent_height`  | number  | `100`   | Accent triangle height (25-150% of full card)       |
+| `accent_width`   | number  | `60`    | Accent triangle width (0-100% of card width)        |
+| `accent_height`  | number  | `100`   | Accent triangle height (0-150% of full card)        |
 | `show_status`    | boolean | `true`  | Show status box                                     |
 | `status_opacity` | number  | `90`    | Status box background opacity (0-100%)              |
 | `status_label`   | string  | `Status`| Label shown before status text                      |

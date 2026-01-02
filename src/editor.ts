@@ -368,66 +368,79 @@ export class StatusBannerCardEditor extends LitElement {
         </div>
 
         <div class="toggle-row">
-          <span>Show Diagonal Pattern</span>
+          <span>Show Accent</span>
           <ha-switch
-            .checked=${this._config.show_pattern !== false}
+            .checked=${this._config.show_accent !== false}
             @change=${(e: Event) =>
-              this._valueChanged('show_pattern', (e.target as HTMLInputElement).checked)}
+              this._valueChanged('show_accent', (e.target as HTMLInputElement).checked)}
           ></ha-switch>
         </div>
 
-        ${this._config.show_pattern !== false
+        ${this._config.show_accent !== false
           ? html`
-              <ha-textfield
-                type="number"
-                .value=${String(this._config.pattern_size ?? 20)}
-                .label=${'Pattern Size (px)'}
-                @input=${(e: Event) =>
-                  this._valueChanged(
-                    'pattern_size',
-                    Number((e.target as HTMLInputElement).value) || 20
-                  )}
-              ></ha-textfield>
+              <div class="toggle-row">
+                <span>Show Diagonal Pattern</span>
+                <ha-switch
+                  .checked=${this._config.show_pattern !== false}
+                  @change=${(e: Event) =>
+                    this._valueChanged('show_pattern', (e.target as HTMLInputElement).checked)}
+                ></ha-switch>
+              </div>
+
+              ${this._config.show_pattern !== false
+                ? html`
+                    <ha-textfield
+                      type="number"
+                      .value=${String(this._config.pattern_size ?? 20)}
+                      .label=${'Pattern Size (px)'}
+                      @input=${(e: Event) =>
+                        this._valueChanged(
+                          'pattern_size',
+                          Number((e.target as HTMLInputElement).value) || 20
+                        )}
+                    ></ha-textfield>
+                  `
+                : nothing}
+
+              <div class="slider-row">
+                <label>Accent Width: ${accentWidth}%</label>
+                <div class="slider-container">
+                  <span class="slider-label">0%</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    .value=${String(accentWidth)}
+                    @input=${(e: Event) =>
+                      this._valueChanged(
+                        'accent_width',
+                        Number((e.target as HTMLInputElement).value)
+                      )}
+                  />
+                  <span class="slider-label">100%</span>
+                </div>
+              </div>
+
+              <div class="slider-row">
+                <label>Accent Height: ${accentHeight}%</label>
+                <div class="slider-container">
+                  <span class="slider-label">0%</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="150"
+                    .value=${String(accentHeight)}
+                    @input=${(e: Event) =>
+                      this._valueChanged(
+                        'accent_height',
+                        Number((e.target as HTMLInputElement).value)
+                      )}
+                  />
+                  <span class="slider-label">150%</span>
+                </div>
+              </div>
             `
           : nothing}
-
-        <div class="slider-row">
-          <label>Accent Width: ${accentWidth}%</label>
-          <div class="slider-container">
-            <span class="slider-label">30%</span>
-            <input
-              type="range"
-              min="30"
-              max="100"
-              .value=${String(accentWidth)}
-              @input=${(e: Event) =>
-                this._valueChanged(
-                  'accent_width',
-                  Number((e.target as HTMLInputElement).value)
-                )}
-            />
-            <span class="slider-label">100%</span>
-          </div>
-        </div>
-
-        <div class="slider-row">
-          <label>Accent Height: ${accentHeight}%</label>
-          <div class="slider-container">
-            <span class="slider-label">25%</span>
-            <input
-              type="range"
-              min="25"
-              max="150"
-              .value=${String(accentHeight)}
-              @input=${(e: Event) =>
-                this._valueChanged(
-                  'accent_height',
-                  Number((e.target as HTMLInputElement).value)
-                )}
-            />
-            <span class="slider-label">150%</span>
-          </div>
-        </div>
 
         <div class="toggle-row">
           <span>Show Status Box</span>
