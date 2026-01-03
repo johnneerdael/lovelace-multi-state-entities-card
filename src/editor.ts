@@ -33,7 +33,8 @@ export class StatusBannerCardEditor extends LitElement {
       <div class="editor-container">
         ${this._renderEntitySection()} ${this._renderRulesSection()} ${this._renderDefaultSection()}
         ${this._renderColorMapSection()} ${this._renderFooterSection()}
-        ${this._renderLayoutSection()}
+        ${this._renderLayoutSection()} ${this._renderTriangleSection()}
+        ${this._renderAlignmentSection()} ${this._renderTextColorsSection()}
       </div>
     `;
   }
@@ -515,6 +516,259 @@ export class StatusBannerCardEditor extends LitElement {
   }
 
   // ─────────────────────────────────────────────────────────────
+  // Triangle Section
+  // ─────────────────────────────────────────────────────────────
+
+  private _renderTriangleSection(): TemplateResult {
+    if (this._config.show_accent === false) {
+      return html``;
+    }
+
+    const corners = [
+      { value: 'top-left', label: 'Top Left' },
+      { value: 'top-right', label: 'Top Right' },
+      { value: 'bottom-left', label: 'Bottom Left' },
+      { value: 'bottom-right', label: 'Bottom Right' },
+    ];
+
+    return html`
+      <div class="section">
+        <div class="section-header">
+          <ha-icon icon="mdi:triangle"></ha-icon>
+          <span>Triangle Shape</span>
+        </div>
+        <p class="section-description">Control the accent triangle corners</p>
+
+        <div class="toggle-row">
+          <span>Full Background (No Triangle)</span>
+          <ha-switch
+            .checked=${this._config.accent_full_background === true}
+            @change=${(e: Event) =>
+              this._valueChanged('accent_full_background', (e.target as HTMLInputElement).checked)}
+          ></ha-switch>
+        </div>
+
+        ${this._config.accent_full_background !== true
+          ? html`
+              <ha-select
+                .value=${this._config.accent_start || 'bottom-left'}
+                .label=${'Triangle Start Corner'}
+                @selected=${(e: CustomEvent) =>
+                  this._valueChanged('accent_start', (e.target as any).value)}
+                @closed=${(e: Event) => e.stopPropagation()}
+              >
+                ${corners.map(
+                  (corner) => html`
+                    <mwc-list-item .value=${corner.value}>${corner.label}</mwc-list-item>
+                  `
+                )}
+              </ha-select>
+
+              <ha-select
+                .value=${this._config.accent_end || 'top-right'}
+                .label=${'Triangle End Corner'}
+                @selected=${(e: CustomEvent) =>
+                  this._valueChanged('accent_end', (e.target as any).value)}
+                @closed=${(e: Event) => e.stopPropagation()}
+              >
+                ${corners.map(
+                  (corner) => html`
+                    <mwc-list-item .value=${corner.value}>${corner.label}</mwc-list-item>
+                  `
+                )}
+              </ha-select>
+            `
+          : nothing}
+      </div>
+    `;
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Alignment Section
+  // ─────────────────────────────────────────────────────────────
+
+  private _renderAlignmentSection(): TemplateResult {
+    const alignments = [
+      { value: 'left', label: 'Left' },
+      { value: 'right', label: 'Right' },
+    ];
+
+    const positions = [
+      { value: 'top-left', label: 'Top Left' },
+      { value: 'top-right', label: 'Top Right' },
+      { value: 'bottom-left', label: 'Bottom Left' },
+      { value: 'bottom-right', label: 'Bottom Right' },
+    ];
+
+    return html`
+      <div class="section">
+        <div class="section-header">
+          <ha-icon icon="mdi:format-horizontal-align-center"></ha-icon>
+          <span>Alignment & Positioning</span>
+        </div>
+
+        <div class="subsection-header">Header</div>
+
+        <ha-select
+          .value=${this._config.title_alignment || 'right'}
+          .label=${'Title Alignment'}
+          @selected=${(e: CustomEvent) =>
+            this._valueChanged('title_alignment', (e.target as any).value)}
+          @closed=${(e: Event) => e.stopPropagation()}
+        >
+          ${alignments.map(
+            (align) => html`
+              <mwc-list-item .value=${align.value}>${align.label}</mwc-list-item>
+            `
+          )}
+        </ha-select>
+
+        <ha-select
+          .value=${this._config.icon_alignment || 'right'}
+          .label=${'Icon Alignment'}
+          @selected=${(e: CustomEvent) =>
+            this._valueChanged('icon_alignment', (e.target as any).value)}
+          @closed=${(e: Event) => e.stopPropagation()}
+        >
+          ${alignments.map(
+            (align) => html`
+              <mwc-list-item .value=${align.value}>${align.label}</mwc-list-item>
+            `
+          )}
+        </ha-select>
+
+        ${this._config.show_footer !== false
+          ? html`
+              <div class="subsection-header">Footer</div>
+
+              <ha-select
+                .value=${this._config.timestamp_position || 'bottom-left'}
+                .label=${'Timestamp Position'}
+                @selected=${(e: CustomEvent) =>
+                  this._valueChanged('timestamp_position', (e.target as any).value)}
+                @closed=${(e: Event) => e.stopPropagation()}
+              >
+                ${positions.map(
+                  (pos) => html`
+                    <mwc-list-item .value=${pos.value}>${pos.label}</mwc-list-item>
+                  `
+                )}
+              </ha-select>
+
+              <ha-select
+                .value=${this._config.button_position || 'bottom-right'}
+                .label=${'Button Position'}
+                @selected=${(e: CustomEvent) =>
+                  this._valueChanged('button_position', (e.target as any).value)}
+                @closed=${(e: Event) => e.stopPropagation()}
+              >
+                ${positions.map(
+                  (pos) => html`
+                    <mwc-list-item .value=${pos.value}>${pos.label}</mwc-list-item>
+                  `
+                )}
+              </ha-select>
+            `
+          : nothing}
+      </div>
+    `;
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Text Colors Section
+  // ─────────────────────────────────────────────────────────────
+
+  private _renderTextColorsSection(): TemplateResult {
+    return html`
+      <div class="section">
+        <div class="section-header">
+          <ha-icon icon="mdi:format-color-text"></ha-icon>
+          <span>Text Colors</span>
+        </div>
+        <p class="section-description">Override text colors (useful when text overlaps accent)</p>
+
+        <div class="color-input">
+          <label>Title Color</label>
+          <div class="color-input-row">
+            <input
+              type="color"
+              .value=${this._config.title_color || '#212121'}
+              @input=${(e: Event) =>
+                this._valueChanged('title_color', (e.target as HTMLInputElement).value)}
+            />
+            <ha-textfield
+              .value=${this._config.title_color || ''}
+              .placeholder=${'Default (theme)'}
+              @input=${(e: Event) =>
+                this._valueChanged('title_color', (e.target as HTMLInputElement).value || undefined)}
+            ></ha-textfield>
+            ${this._config.title_color
+              ? html`
+                  <ha-icon-button
+                    .path=${'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z'}
+                    @click=${() => this._valueChanged('title_color', undefined)}
+                  ></ha-icon-button>
+                `
+              : nothing}
+          </div>
+        </div>
+
+        <div class="color-input">
+          <label>Subtitle Color</label>
+          <div class="color-input-row">
+            <input
+              type="color"
+              .value=${this._config.subtitle_color || '#727272'}
+              @input=${(e: Event) =>
+                this._valueChanged('subtitle_color', (e.target as HTMLInputElement).value)}
+            />
+            <ha-textfield
+              .value=${this._config.subtitle_color || ''}
+              .placeholder=${'Default (theme)'}
+              @input=${(e: Event) =>
+                this._valueChanged('subtitle_color', (e.target as HTMLInputElement).value || undefined)}
+            ></ha-textfield>
+            ${this._config.subtitle_color
+              ? html`
+                  <ha-icon-button
+                    .path=${'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z'}
+                    @click=${() => this._valueChanged('subtitle_color', undefined)}
+                  ></ha-icon-button>
+                `
+              : nothing}
+          </div>
+        </div>
+
+        <div class="color-input">
+          <label>Timestamp Color</label>
+          <div class="color-input-row">
+            <input
+              type="color"
+              .value=${this._config.timestamp_color || '#212121'}
+              @input=${(e: Event) =>
+                this._valueChanged('timestamp_color', (e.target as HTMLInputElement).value)}
+            />
+            <ha-textfield
+              .value=${this._config.timestamp_color || ''}
+              .placeholder=${'Default (theme)'}
+              @input=${(e: Event) =>
+                this._valueChanged('timestamp_color', (e.target as HTMLInputElement).value || undefined)}
+            ></ha-textfield>
+            ${this._config.timestamp_color
+              ? html`
+                  <ha-icon-button
+                    .path=${'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z'}
+                    @click=${() => this._valueChanged('timestamp_color', undefined)}
+                  ></ha-icon-button>
+                `
+              : nothing}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // ─────────────────────────────────────────────────────────────
   // Value Change Handlers
   // ─────────────────────────────────────────────────────────────
 
@@ -676,6 +930,15 @@ export class StatusBannerCardEditor extends LitElement {
         font-size: 0.875rem;
         color: var(--secondary-text-color);
         margin: -8px 0 12px 0;
+      }
+
+      .subsection-header {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--secondary-text-color);
+        margin: 16px 0 8px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
 
       ha-entity-picker,
