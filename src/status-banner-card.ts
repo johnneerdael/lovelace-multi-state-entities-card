@@ -12,6 +12,62 @@ import { parseTemplate } from './template/parser';
 import { styles } from './styles';
 import { DEFAULT_CONFIG, CARD_INFO } from './constants';
 
+// Type for corner positions
+type Corner = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+type Position = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+// Corner coordinate mapping
+const CORNER_COORDS: Record<Corner, string> = {
+  'top-left': '0 0',
+  'top-right': '100% 0',
+  'bottom-left': '0 100%',
+  'bottom-right': '100% 100%',
+};
+
+/**
+ * Calculate clip-path polygon for triangle based on start/end corners
+ * The third point is determined to create a triangle along the card edges
+ */
+function calculateTriangleClipPath(start: Corner, end: Corner): string {
+  // If same corner, return empty (no triangle)
+  if (start === end) {
+    return 'none';
+  }
+
+  const startCoord = CORNER_COORDS[start];
+  const endCoord = CORNER_COORDS[end];
+
+  // Determine the third corner to complete the triangle
+  // We pick the corner that shares an edge with both start and end
+  const corners: Corner[] = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+  const edges: Record<Corner, Corner[]> = {
+    'top-left': ['top-right', 'bottom-left'],
+    'top-right': ['top-left', 'bottom-right'],
+    'bottom-left': ['top-left', 'bottom-right'],
+    'bottom-right': ['top-right', 'bottom-left'],
+  };
+
+  // Find corner that shares edge with both start and end
+  let thirdCorner: Corner | null = null;
+  for (const corner of corners) {
+    if (corner === start || corner === end) continue;
+    const adjacentToStart = edges[start].includes(corner);
+    const adjacentToEnd = edges[end].includes(corner);
+    if (adjacentToStart && adjacentToEnd) {
+      thirdCorner = corner;
+      break;
+    }
+  }
+
+  // If no shared adjacent corner (diagonal), pick start's first adjacent
+  if (!thirdCorner) {
+    thirdCorner = edges[start][0];
+  }
+
+  const thirdCoord = CORNER_COORDS[thirdCorner];
+  return `polygon(${startCoord}, ${endCoord}, ${thirdCoord})`;
+}
+
 // Declare the customCards array on window
 declare global {
   interface Window {
@@ -172,6 +228,27 @@ export class StatusBannerCard extends LitElement {
     const patternSize = this._config.pattern_size ?? 20;
     const accentWidth = this._config.accent_width ?? 60;
     const accentHeight = this._config.accent_height ?? 100;
+    const accentFullBackground = this._config.accent_full_background ?? false;
+    const accentStart = this._config.accent_start ?? 'bottom-left';
+    const accentEnd = this._config.accent_end ?? 'top-right';
+
+    // Calculate clip-path for triangle (or none for full background)
+    const clipPath = accentFullBackground ? 'none' : calculateTriangleClipPath(accentStart, accentEnd);
+    const accentWidthStyle = accentFullBackground ? '100%' : `${accentWidth}%`;
+    const accentHeightStyle = accentFullBackground ? '100%' : `${accentHeight}%`;
+
+    // Text color overrides
+    const titleColor = this._config.title_color;
+    const subtitleColor = this._config.subtitle_color;
+    const timestampColor = this._config.timestamp_color;
+
+    // Alignment settings
+    const titleAlignment = this._config.title_alignment ?? 'right';
+    const iconAlignment = this._config.icon_alignment ?? 'right';
+
+    // Position settings
+    const timestampPosition = this._config.timestamp_position ?? 'bottom-left';
+    const buttonPosition = this._config.button_position ?? 'bottom-right';
 
     return html`
       <ha-card @click=${this._handleCardClick}>
@@ -182,33 +259,60 @@ export class StatusBannerCard extends LitElement {
           ${showAccent
             ? html`<div
                 class="card-accent ${showPattern ? 'with-pattern' : ''}"
-                style="--accent-color: ${display.color}; --accent-width: ${accentWidth}%; --accent-height: ${accentHeight}%; --pattern-size: ${patternSize}px"
+                style="--accent-color: ${display.color}; --accent-width: ${accentWidthStyle}; --accent-height: ${accentHeightStyle}; --pattern-size: ${patternSize}px; clip-path: ${clipPath}"
               ></div>`
             : nothing}
-          ${this._renderHeader(display)}
+          ${this._renderHeader(display, titleAlignment, iconAlignment, titleColor, subtitleColor)}
           ${showStatus && display.statusText ? this._renderStatusBox(display) : nothing}
-          ${showFooter ? this._renderFooter(display) : nothing}
+          ${showFooter ? this._renderFooterElements(display, timestampPosition, buttonPosition, timestampColor) : nothing}
         </div>
       </ha-card>
     `;
   }
 
-  private _renderHeader(display: DisplayData): TemplateResult {
+  private _renderHeader(
+    display: DisplayData,
+    titleAlignment: 'left' | 'right',
+    iconAlignment: 'left' | 'right',
+    titleColor?: string,
+    subtitleColor?: string
+  ): TemplateResult {
+    // Determine flex layout based on alignments
+    const sameAlignment = titleAlignment === iconAlignment;
+    const justifyContent = sameAlignment
+      ? (titleAlignment === 'right' ? 'flex-end' : 'flex-start')
+      : 'space-between';
+
+    // Icon order: if both right or icon-left/title-right, icon comes after text in DOM but may be reordered
+    const iconOrder = iconAlignment === 'left' ? -1 : 1;
+    const textOrder = titleAlignment === 'left' ? -1 : 1;
+
+    // Text alignment
+    const textAlign = titleAlignment;
+
+    // Margin: when same side, add gap between icon and text
+    const textMargin = sameAlignment
+      ? (titleAlignment === 'right' ? 'margin-right: 20px;' : 'margin-left: 20px;')
+      : '';
+
     return html`
       <div class="header" style="--header-height: ${this._config.header_height}">
-        <div class="header-content">
+        <div class="header-content" style="justify-content: ${justifyContent};">
           <div class="header-text" style="
+            text-align: ${textAlign};
+            order: ${textOrder};
+            ${textMargin}
             ${display.titleFontSize ? `--title-font-size: ${display.titleFontSize};` : ''}
             ${display.subtitleFontSize ? `--subtitle-font-size: ${display.subtitleFontSize};` : ''}
           ">
-            <div class="title">${display.title}</div>
-            ${display.subtitle ? html`<div class="subtitle">${display.subtitle}</div>` : nothing}
+            <div class="title" style="${titleColor ? `color: ${titleColor};` : ''}">${display.title}</div>
+            ${display.subtitle ? html`<div class="subtitle" style="${subtitleColor ? `color: ${subtitleColor};` : ''}">${display.subtitle}</div>` : nothing}
           </div>
 
           <ha-icon
             class="header-icon"
             .icon=${display.icon}
-            style="--mdc-icon-size: ${this._config.icon_size}; color: ${display.color}"
+            style="--mdc-icon-size: ${this._config.icon_size}; color: ${display.color}; order: ${iconOrder};"
           ></ha-icon>
         </div>
       </div>
@@ -228,7 +332,12 @@ export class StatusBannerCard extends LitElement {
     `;
   }
 
-  private _renderFooter(display: DisplayData): TemplateResult {
+  private _renderFooterElements(
+    display: DisplayData,
+    timestampPosition: Position,
+    buttonPosition: Position,
+    timestampColor?: string
+  ): TemplateResult {
     const timestamp = this._getTimestamp();
     const buttonAction = this._config.button_actions?.[0];
 
@@ -236,13 +345,36 @@ export class StatusBannerCard extends LitElement {
       return html``;
     }
 
+    // Position CSS mapping
+    const positionStyles: Record<Position, string> = {
+      'top-left': 'top: 16px; left: 24px;',
+      'top-right': 'top: 16px; right: 24px;',
+      'bottom-left': 'bottom: 16px; left: 24px;',
+      'bottom-right': 'bottom: 16px; right: 24px;',
+    };
+
+    // Check if timestamp and button share same position
+    const samePosition = timestamp && buttonAction && timestampPosition === buttonPosition;
+
+    // If same position, render as stacked container
+    if (samePosition) {
+      const stackAlign = buttonPosition.includes('right') ? 'flex-end' : 'flex-start';
+      return html`
+        <div class="footer-stack" style="${positionStyles[buttonPosition]} align-items: ${stackAlign};">
+          <div class="timestamp" style="${timestampColor ? `color: ${timestampColor};` : ''}">Last Check: ${timestamp}</div>
+          ${this._renderButton(buttonAction!, display)}
+        </div>
+      `;
+    }
+
+    // Otherwise, render timestamp and button independently
     return html`
-      <div class="footer">
-        ${timestamp
-          ? html` <div class="timestamp">Last Check: ${timestamp}</div> `
-          : html`<div></div>`}
-        ${buttonAction ? this._renderButton(buttonAction, display) : nothing}
-      </div>
+      ${timestamp
+        ? html`<div class="timestamp positioned" style="${positionStyles[timestampPosition]} ${timestampColor ? `color: ${timestampColor};` : ''}">Last Check: ${timestamp}</div>`
+        : nothing}
+      ${buttonAction
+        ? html`<div class="button-wrapper" style="${positionStyles[buttonPosition]}">${this._renderButton(buttonAction, display)}</div>`
+        : nothing}
     `;
   }
 
@@ -373,7 +505,7 @@ window.customCards.push({
 
 // Log version info
 console.info(
-  `%c  STATUS-BANNER-CARD  %c  v1.1.5  `,
+  `%c  STATUS-BANNER-CARD  %c  v1.2.0  `,
   'color: white; background: #2196F3; font-weight: bold;',
   'color: #2196F3; background: white; font-weight: bold;'
 );

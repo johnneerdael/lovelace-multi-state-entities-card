@@ -17,6 +17,13 @@ export const DEFAULT_CONFIG: Partial<StatusBannerCardConfig> = {
   accent_width: 60,
   accent_height: 100,
   status_opacity: 90,
+  accent_start: 'bottom-left',
+  accent_end: 'top-right',
+  accent_full_background: false,
+  title_alignment: 'right',
+  icon_alignment: 'right',
+  timestamp_position: 'bottom-left',
+  button_position: 'bottom-right',
   color_map: {
     blue: '#2196F3',
     green: '#4CAF50',

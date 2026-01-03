@@ -8,6 +8,13 @@ A flexible Home Assistant Lovelace card with a distinctive banner design for dis
 
 ## What's New
 
+### v1.2.0 - Flexible Layout & Triangle Control
+- **Triangle Corner Control** - Configure `accent_start` and `accent_end` to any corner (top-left, top-right, bottom-left, bottom-right)
+- **Full Background Mode** - Set `accent_full_background: true` to fill entire card with accent color
+- **Header Alignment** - Independent `title_alignment` and `icon_alignment` (left/right)
+- **Footer Positioning** - Place timestamp and button at any corner with `timestamp_position` and `button_position`
+- **Text Color Overrides** - `title_color`, `subtitle_color`, `timestamp_color` for when text overlaps accent
+
 ### v1.1.5 - Cleaner Labels & Simplified Options
 - **Renamed Labels** - "Show Diagonal Pattern" → "Show Stripes", "Pattern Size" → "Stripe Width"
 - **Removed Variant** - The card variant dropdown was removed; use `show_status` and `show_footer` toggles instead
@@ -148,6 +155,9 @@ Each rule in the `rules` array can have:
 | `pattern_size`   | number  | `20`    | Stripe width in pixels                              |
 | `accent_width`   | number  | `60`    | Accent triangle width (0-100% of card width)        |
 | `accent_height`  | number  | `100`   | Accent triangle height (0-150% of full card)        |
+| `accent_start`   | string  | `bottom-left` | Triangle start corner (top-left, top-right, bottom-left, bottom-right) |
+| `accent_end`     | string  | `top-right` | Triangle end corner (top-left, top-right, bottom-left, bottom-right) |
+| `accent_full_background` | boolean | `false` | Fill entire card with accent color (no triangle) |
 | `show_status`    | boolean | `true`  | Show status box                                     |
 | `status_opacity` | number  | `90`    | Status box background opacity (0-100%)              |
 | `status_label`   | string  | `Status`| Label shown before status text                      |
@@ -155,6 +165,18 @@ Each rule in the `rules` array can have:
 | `header_height`  | string  | `120px` | Header section height                               |
 | `icon_size`      | string  | `54px`  | Main icon size                                      |
 | `border_radius`  | string  | `16px`  | Card corner radius                                  |
+
+### Alignment & Positioning Options
+
+| Option              | Type   | Default        | Description                                      |
+| ------------------- | ------ | -------------- | ------------------------------------------------ |
+| `title_alignment`   | string | `right`        | Title/subtitle alignment (left, right)           |
+| `icon_alignment`    | string | `right`        | Icon alignment, independent of title (left, right) |
+| `timestamp_position`| string | `bottom-left`  | Timestamp position (top-left, top-right, bottom-left, bottom-right) |
+| `button_position`   | string | `bottom-right` | Button position (top-left, top-right, bottom-left, bottom-right) |
+| `title_color`       | string | -              | Title text color override (CSS color)            |
+| `subtitle_color`    | string | -              | Subtitle text color override (CSS color)         |
+| `timestamp_color`   | string | -              | Timestamp text color override (CSS color)        |
 
 ### Footer Options
 
@@ -526,6 +548,58 @@ default:
   title: "All Clear"
   title_font_size: "1.5rem"
   icon: mdi:check-circle
+  color: "#4CAF50"
+```
+
+### Inverted Layout (Left-Aligned with Right Triangle)
+
+```YAML
+type: custom:status-banner-card
+entity: sensor.important_alert
+title_alignment: "left"
+icon_alignment: "left"
+accent_start: "top-right"
+accent_end: "bottom-right"
+timestamp_position: "top-right"
+button_position: "bottom-right"
+
+rules:
+  - state: active
+    title: "ALERT ACTIVE"
+    subtitle: "Action required"
+    icon: mdi:alert
+    color: "#F44336"
+    status_text: "Please review the alert details."
+
+default:
+  title: "All Clear"
+  icon: mdi:check-circle
+  color: "#4CAF50"
+```
+
+### Full Background Banner (Urgent Alert)
+
+```YAML
+type: custom:status-banner-card
+entity: sensor.emergency_status
+accent_full_background: true
+title_color: "#ffffff"
+subtitle_color: "#eeeeee"
+timestamp_color: "#ffffff"
+title_alignment: "left"
+icon_alignment: "right"
+
+rules:
+  - state: emergency
+    title: "EMERGENCY"
+    subtitle: "Immediate action required"
+    icon: mdi:alert-octagon
+    color: "#D32F2F"
+    status_text: "Critical situation detected."
+
+default:
+  title: "System Normal"
+  icon: mdi:shield-check
   color: "#4CAF50"
 ```
 

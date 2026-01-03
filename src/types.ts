@@ -78,6 +78,36 @@ export interface StatusBannerCardConfig {
 
   /** Status box background opacity (0-100, default: 90) */
   status_opacity?: number;
+
+  /** Accent triangle start corner (default: bottom-left) */
+  accent_start?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+  /** Accent triangle end corner (default: top-right) */
+  accent_end?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+  /** Fill entire card background with accent color */
+  accent_full_background?: boolean;
+
+  /** Title text color override (CSS color) */
+  title_color?: string;
+
+  /** Subtitle text color override (CSS color) */
+  subtitle_color?: string;
+
+  /** Timestamp text color override (CSS color) */
+  timestamp_color?: string;
+
+  /** Title/subtitle alignment (default: right) */
+  title_alignment?: 'left' | 'right';
+
+  /** Icon alignment, independent of title (default: right) */
+  icon_alignment?: 'left' | 'right';
+
+  /** Timestamp position (default: bottom-left) */
+  timestamp_position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+  /** Button position (default: bottom-right) */
+  button_position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }
 
 /**

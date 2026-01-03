@@ -38,7 +38,7 @@ export const styles = css`
     width: var(--accent-width, 60%);
     height: var(--accent-height, 100%);
     background-color: var(--accent-color);
-    clip-path: polygon(0 0, 0% 100%, 100% 0);
+    /* clip-path is now set dynamically via inline style */
     z-index: 0;
     transition: background-color 0.3s ease;
   }
@@ -76,7 +76,7 @@ export const styles = css`
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    /* justify-content is now set dynamically via inline style */
     align-items: center;
     padding: 0 24px 0 16px;
   }
@@ -84,8 +84,7 @@ export const styles = css`
   .header-text {
     display: flex;
     flex-direction: column;
-    text-align: right;
-    margin-right: 20px;
+    /* text-align and margin are now set dynamically via inline style */
   }
 
   .title {
@@ -149,17 +148,15 @@ export const styles = css`
   }
 
   /* ═══════════════════════════════════════════════════════════════
-     FOOTER
+     FOOTER (positioned elements)
      ═══════════════════════════════════════════════════════════════ */
 
-  .footer {
-    position: relative;
+  .footer-stack {
+    position: absolute;
     z-index: 1;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 24px;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .timestamp {
@@ -167,6 +164,16 @@ export const styles = css`
     font-family: var(--paper-font-code-family, monospace);
     opacity: 0.4;
     color: var(--sbc-primary-text);
+  }
+
+  .timestamp.positioned {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .button-wrapper {
+    position: absolute;
+    z-index: 1;
   }
 
   .action-btn {
