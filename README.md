@@ -1,4 +1,3 @@
-
 # Lovelace Multi State Entities Card
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=johnneerdael&repository=lovelace-multi-state-entities-card&category=plugin)
@@ -135,7 +134,9 @@ Tracks travel time delay to a destination.
    - Add `/local/lovelace-multi-state-entities-card.js` as JavaScript Module
 
 ## Quick Start
+
 {% raw %}
+
 ```YAML
 type: custom:lovelace-multi-state-entities-card
 entity: sensor.garbage_dashboard_status
@@ -168,7 +169,9 @@ color_map:
   purple: "#9C27B0"
   black: "#686868"
 ```
+
 {% endraw %}
+
 ## Configuration
 
 ### Basic Options
@@ -237,7 +240,9 @@ Each rule in the `rules` array can have:
 | `button_actions`      | array  | Button configurations                      |
 
 ### Button Action
+
 {% raw %}
+
 ```YAML
 button_actions:
   - selector: ".update-btn"
@@ -249,7 +254,9 @@ button_actions:
       target:
         entity_id: input_button.garbage_status_manual
 ```
+
 {% endraw %}
+
 ## Template System
 
 ### Available Variables
@@ -287,7 +294,9 @@ button_actions:
 - **Color mapping:** Define `color_map` in the card config and refer to it with `{{ attr.target_bin \| color_map }}` inside `rules`.
 
 ### Color mapping (card config)
+
 {% raw %}
+
 ```YAML
 type: custom:lovelace-multi-state-entities-card
 entity: sensor.garbage_dashboard_status
@@ -299,9 +308,13 @@ color_map:
   black: "#686868"
   default: "#9E9E9E"
 ```
+
 {% endraw %}
+
 ## Simple schedule-driven template sensor
+
 {% raw %}
+
 ```YAML
 template:
   - sensor:
@@ -341,9 +354,13 @@ template:
             {% endif %}
           next_collection: "{{ states('sensor.avalex_tomorrow') }}"
 ```
+
 {% endraw %}
+
 ### Card config (simple)
+
 {% raw %}
+
 ```YAML
 type: custom:lovelace-multi-state-entities-card
 entity: sensor.garbage_dashboard_status
@@ -376,11 +393,14 @@ default:
   color: "#505050"
   status_text: "Next collection: {{ states('sensor.avalex_tomorrow') }}"
 ```
+
 {% endraw %}
+
 ## Advanced vision + memory outline (matches automation)
 
 Use the provided automation (LLM vision with multi-day memory) to update `input_text.bin_status_memory` and rely on schedule sensors. The template sensor below prioritizes memory when the bin is out, then schedule:
 {% raw %}
+
 ```YAML
 template:
   - sensor:
@@ -432,9 +452,13 @@ template:
           source: >
             {% if mem not in ['unknown', 'unavailable', ''] %}vision{% else %}schedule{% endif %}
 ```
+
 {% endraw %}
+
 ### Card config (advanced vision + memory)
+
 {% raw %}
+
 ```YAML
 type: custom:lovelace-multi-state-entities-card
 entity: sensor.garbage_dashboard_status
@@ -470,6 +494,7 @@ default:
   color: "#505050"
   status_text: "Next collection: {{ states('sensor.avalex_tomorrow') }}"
 ```
+
 {% endraw %}
 Notes:
 
@@ -481,7 +506,9 @@ Notes:
 ## Examples
 
 ### EV Charging Status
+
 {% raw %}
+
 ```YAML
 type: custom:lovelace-multi-state-entities-card
 entity: input_select.ev_ai_action
@@ -509,9 +536,13 @@ default:
 
 timestamp_entity: automation.ev_charging_ai_energy_strategist
 ```
+
 {% endraw %}
+
 ### Alarm Status
+
 {% raw %}
+
 ```YAML
 type: custom:lovelace-multi-state-entities-card
 entity: alarm_control_panel.home
@@ -542,9 +573,13 @@ default:
   icon: mdi:shield-alert
   color: "#9E9E9E"
 ```
+
 {% endraw %}
+
 ### Compact Variant
+
 {% raw %}
+
 ```YAML
 type: custom:lovelace-multi-state-entities-card
 entity: sensor.cpu_temperature
@@ -568,9 +603,13 @@ default:
   icon: mdi:thermometer-high
   color: "#F44336"
 ```
+
 {% endraw %}
+
 ### Custom Typography & Accent
+
 {% raw %}
+
 ```YAML
 type: custom:lovelace-multi-state-entities-card
 entity: sensor.important_alert
@@ -600,9 +639,13 @@ default:
   icon: mdi:check-circle
   color: "#4CAF50"
 ```
+
 {% endraw %}
+
 ### Inverted Layout (Left-Aligned with Right Triangle)
+
 {% raw %}
+
 ```YAML
 type: custom:lovelace-multi-state-entities-card
 entity: sensor.important_alert
@@ -626,9 +669,13 @@ default:
   icon: mdi:check-circle
   color: "#4CAF50"
 ```
+
 {% emdraw %}
+
 ### Full Background Banner (Urgent Alert)
+
 {% raw %}
+
 ```YAML
 type: custom:lovelace-multi-state-entities-card
 entity: sensor.emergency_status
@@ -652,7 +699,9 @@ default:
   icon: mdi:shield-check
   color: "#4CAF50"
 ```
+
 {% endraw %}
+
 ## Additional Ideas for Use-Cases
 
 This card excels at displaying "Call to Action" information—situations where the user needs to know something immediately or do something specific. Because of the distinct banner style and the ability to map colors to urgency, it works best for binary or ternary states (Good/Warning/Critical).
@@ -792,7 +841,9 @@ This card excels at displaying "Call to Action" information—situations where t
 For many of these, you will want to create a **Template Sensor** (like we did for the garbage bin in the example) to aggregate logic. For example, the **"Perimeter Monitor"** sensor would look at _all_ windows and the weather state to determine if the state is `SECURE`, `OPEN`, or `CRITICAL_RAIN`.
 
 ## Development
+
 {% raw %}
+
 ```Shell
 # Install dependencies
 npm install
@@ -806,7 +857,9 @@ npm run build
 # Lint code
 npm run lint
 ```
+
 {% endraw %}
+
 ## Contributing
 
 Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
