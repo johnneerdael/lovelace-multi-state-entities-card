@@ -4,5 +4,3 @@ exclude:
   - node_modules/
   - blueprints/
   - AGENTS.md
-plugins:
-  - jekyll-seo-tag
