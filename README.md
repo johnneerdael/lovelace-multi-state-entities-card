@@ -93,10 +93,6 @@ A flexible Home Assistant Lovelace card with a distinctive banner design for dis
 
 * [EV Charging Blueprint](https://gist.githubusercontent.com/johnneerdael/a71b316da3ece86165fe3ae4a9668023/raw/d06c38c4ce01cc7582e6c29174533ec96ccd4ac6/ev-charging-001.yaml), Addons used: Lynk\&Co, Zonneplan, and PirateWeather, Camera Integration and LLM Vision + AI Task
 
-![1.00](https://github.com/johnneerdael/lovelace-multi-state-entities-card/blob/main/examples/garbage-collection.png?raw=true)
-
-* [Smart Bin Detection Blueprint](https://gist.githubusercontent.com/johnneerdael/f1907f11554b50ee9eee3391987f9092/raw/d105230acd8447b602b1cbea8638129085405083/garbage-collection-001.yaml), Addons used: Afvalbeheer, Time and Date, TTS and Camera Integration and LLM Vision
-
 ## Blueprints
 
 This repository includes ready-to-use Home Assistant blueprints that complement the Lovelace Multi State Entities Card. They are divided into **Template Blueprints** (which create the Dashboard Sensor) and **Automation Blueprints** (which handle logic, notifications, and AI).
@@ -107,6 +103,8 @@ This repository includes ready-to-use Home Assistant blueprints that complement 
 Creates the unified `sensor.garbage_dashboard_status` used by the card.
 - **Import:** [![Import Blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https://github.com/johnneerdael/lovelace-multi-state-entities-card/blob/main/blueprints/template/garbage_dashboard_sensor.yaml)
 - **Features:** Aggregates schedule sensors and AI vision memory into a single state (`PUT_OUT`, `BRING_IN`, `IDLE`).
+
+![1.00](https://github.com/johnneerdael/lovelace-multi-state-entities-card/blob/main/examples/garbage-collection.png?raw=true)
 
 **2. Vision Verification (Automation)**
 The "Brain" behind the system.
