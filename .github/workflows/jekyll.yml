@@ -19,6 +19,9 @@ permissions:
   contents: read
   pages: write
   id-token: write
+env:
+  PAGES_REPO_NWO: ${{ github.repository }}
+  JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
