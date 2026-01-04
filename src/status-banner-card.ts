@@ -421,9 +421,26 @@ export class StatusBannerCard extends LitElement {
     if (buttonAction) {
       const buttonHtml = this._renderButton(buttonAction, display);
       if (buttonOnLeft) {
-        leftContent.push(buttonHtml);
+        // If button is on the same side as timestamp, we want button ON TOP (pushed first)
+        // because flex-direction is column.
+        // Wait, standard flex-direction: column stacks top-to-bottom.
+        // If user wants timestamp UNDER button, button must be first in the array.
+        if (timestampOnLeft) {
+           leftContent.unshift(buttonHtml);
+        } else {
+           leftContent.push(buttonHtml);
+        }
       } else {
-        rightContent.push(buttonHtml);
+        // Button on right
+        if (!timestampOnLeft) {
+           // Timestamp is also on right.
+           // We want timestamp UNDER button.
+           // flex-direction column (align-items flex-end).
+           // First item is top. So button first.
+           rightContent.unshift(buttonHtml);
+        } else {
+           rightContent.push(buttonHtml);
+        }
       }
     }
 
@@ -628,7 +645,7 @@ window.customCards.push({
 
 // Log version info
 console.info(
-  `%c  STATUS-BANNER-CARD  %c  v1.4.1  `,
+  `%c  STATUS-BANNER-CARD  %c  v1.4.2  `,
   'color: white; background: #2196F3; font-weight: bold;',
   'color: #2196F3; background: white; font-weight: bold;'
 );
