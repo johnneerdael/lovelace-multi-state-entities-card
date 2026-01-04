@@ -1,255 +1,261 @@
-# Standard Layout Variants
+# Status Banner Card: Layout & Design Variants
 
-## 1. Classic Right-Aligned
+The `status-banner-card` is highly customizable. Below are 15 design variants showcasing the flexibility of accents, colors, and element visibility.
 
-The default layout. Title and Icon on the right, perfect for stacking on the left side of a dashboard view.
+## 1. The Classic Wedge (Default)
+
+Standard diagonal split with right-aligned content.
 
 ```yaml
 type: custom:lovelace-multi-state-entities-card
-entity: sensor.garbage_dashboard_status
-title_alignment: right
-icon_alignment: right
+entity: sensor.mailbox
 accent_start: bottom-left
 accent_end: top-right
+title_alignment: right
+icon_alignment: right
 rules:
-  - state: PUT_OUT
-    title: "PUT OUT {{ attr.friendly_name_text | upper }}"
-    subtitle: "Collection Tomorrow"
-    icon: mdi:delete-restore
-    color: "{{ attr.target_bin | color_map }}"
+  - state: "MAIL_ARRIVED"
+    color: "#FFC107"
+    title: "YOU HAVE MAIL"
+    icon: mdi:mailbox-up
 ```
 
-## 2. Left-Aligned Inverted
+## 2. Inverted Security Shield
 
-Mirror image layout. Useful for the right side of a dashboard.
+Left-aligned with an opposite diagonal accent.
 
 ```yaml
 type: custom:lovelace-multi-state-entities-card
-entity: sensor.security_dashboard_status
-title_alignment: left
-icon_alignment: left
+entity: sensor.alarm_status
 accent_start: bottom-right
 accent_end: top-left
-timestamp_position: bottom-right
-button_position: bottom-left
+title_alignment: left
+icon_alignment: left
 rules:
-  - state: SECURE
-    title: HOUSE SECURE
-    subtitle: All sensors closed
+  - state: "ARMED"
+    color: "#4CAF50"
+    title: "SYSTEM SECURE"
     icon: mdi:shield-check
-    color: "#4CAF50"
 ```
 
-## 3. Centered Layout
+## 3. High-Urgency Zebra Stripe
 
-Symmetrical layout with centered text and icon.
+Uses `secondary_color` and `accent_full_background` for a hazard effect.
 
 ```yaml
 type: custom:lovelace-multi-state-entities-card
-entity: sensor.house_mode_status
-title_alignment: center
-icon_alignment: center
-accent_start: bottom-left
-accent_end: bottom-right
-accent_height: 50
-rules:
-  - state: HOME
-    title: WELCOME HOME
-    subtitle: "3 People Present"
-    icon: mdi:home-account
-    color: "#2196F3"
-```
-
-## 4. Full Background (Urgent)
-
-Fills the card with color for critical alerts.
-
-```yaml
-type: custom:lovelace-multi-state-entities-card
-entity: sensor.environment_dashboard_status
+entity: sensor.leak_detector
 accent_full_background: true
+secondary_color: "#000000"
 title_color: "#FFFFFF"
-subtitle_color: "#EEEEEE"
-timestamp_color: "#DDDDDD"
 rules:
-  - state: DANGER
-    title: AIR QUALITY ALERT
-    subtitle: "High CO2 Levels"
-    icon: mdi:weather-windy
+  - state: "LEAK"
     color: "#F44336"
+    title: "CRITICAL: WATER LEAK"
+    icon: mdi:water-alert
 ```
 
-## 5. Compact Mode
+## 4. Minimalist Top Tab
 
-Minimalist version without footer or status box.
+A subtle 10px line at the top, no status box.
 
 ```yaml
 type: custom:lovelace-multi-state-entities-card
-entity: sensor.hvac_filter_status
-show_status: false
-show_footer: false
-header_height: 80px
-icon_size: 40px
-rules:
-  - state: OK
-    title: FILTER OK
-    icon: mdi:air-filter
-    color: "#4CAF50"
-```
-
-## 6. Wide Accent (Top)
-
-A wide accent line at the top, creating a "tab" look.
-
-```yaml
-type: custom:lovelace-multi-state-entities-card
-entity: sensor.commute_status
+entity: sensor.hvac_mode
 accent_start: top-left
 accent_end: top-right
 accent_height: 10
+show_status: false
 rules:
-  - state: CLEAR
-    title: COMMUTE CLEAR
-    color: "#4CAF50"
+  - state: "COOLING"
+    color: "#2196F3"
+    title: "AC IS RUNNING"
 ```
 
-## 7. Vertical Split
+## 5. The "Glass" Banner
 
-A vertical accent bar on the edge.
+Uses RGBA colors for a semi-transparent overlay effect.
 
 ```yaml
 type: custom:lovelace-multi-state-entities-card
-entity: sensor.battery_status
+entity: sensor.sun_elevation
+accent_full_background: true
+rules:
+  - state: "/.*/"
+    color: "rgba(255, 152, 0, 0.2)"
+    title_color: "#FF9800"
+    title: "SUN ELEVATION: {{ state }}°"
+```
+
+## 6. Centered Hero Card
+
+Symmetrical accent at the bottom with centered large icon.
+
+```yaml
+type: custom:lovelace-multi-state-entities-card
+entity: sensor.house_presence
+accent_start: bottom-left
+accent_end: bottom-right
+accent_height: 40
+title_alignment: center
+icon_alignment: center
+icon_size: 60px
+rules:
+  - state: "HOME"
+    color: "#8BC34A"
+    title: "WELCOME HOME"
+    icon: mdi:home-heart
+```
+
+## 7. Vertical Indicator Bar
+
+A thin 15px bar on the left edge.
+
+```yaml
+type: custom:lovelace-multi-state-entities-card
+entity: sensor.battery_level
 accent_start: top-left
 accent_end: bottom-left
 accent_width: 15
 rules:
-  - state: DISCHARGING
-    title: ON BATTERY
-    color: "#FF9800"
-```
-
-## 8. Zebra Striped (Urgent)
-
-Uses the secondary color for a warning stripe effect.
-
-```yaml
-type: custom:lovelace-multi-state-entities-card
-entity: sensor.leak_sensor
-accent_full_background: true
-secondary_color: "#000000"
-rules:
-  - state: LEAK
-    title: LEAK DETECTED
+  - state: "/[0-2][0-9]/" # Below 30%
     color: "#F44336"
+    title: "BATTERY LOW"
+    subtitle: "{{ state }}% Remaining"
 ```
 
-## 9. Minimalist Bottom Tab
+## 8. Split Personality
 
-Subtle accent at the bottom.
+Different alignments for title and icon.
 
 ```yaml
 type: custom:lovelace-multi-state-entities-card
-entity: sensor.mail_status
-accent_start: bottom-left
+entity: sensor.commute_time
+title_alignment: left
+icon_alignment: right
+accent_start: top-right
 accent_end: bottom-right
-accent_height: 20
+accent_width: 50
 rules:
-  - state: MAIL_ARRIVED
-    title: MAIL DELIVERED
-    color: "#FFC107"
+  - state: "/.*/"
+    color: "#673AB7"
+    title: "WORK COMMUTE"
+    subtitle: "{{ state }} mins via I-95"
 ```
 
-## 10. Corner Flash
+## 9. The Notification Dot
 
-Small triangular accent in the corner.
+Small 30x30 triangle in the top-right corner.
 
 ```yaml
 type: custom:lovelace-multi-state-entities-card
-entity: sensor.plant_moisture
+entity: sensor.update_available
 accent_start: top-right
 accent_end: top-right
-accent_height: 100
-accent_width: 100
+accent_height: 30
+accent_width: 30
 rules:
-  - state: THIRSTY
-    title: WATER PLANT
-    color: "#2196F3"
+  - state: "YES"
+    color: "#E91E63"
+    title: "SOFTWARE UPDATE"
+    subtitle: "Version 2.4.1 Ready"
 ```
 
-## 11. Large Information Card
+## 10. Data-Only Row (Compact)
 
-Expanded heights for more detailed subtitles.
+Reduced header height, no footer, focus on status box.
 
 ```yaml
 type: custom:lovelace-multi-state-entities-card
-entity: sensor.energy_usage
-header_height: 150px
-subtitle_size: 1.2rem
+entity: sensor.server_load
+header_height: 50px
+show_footer: false
 rules:
-  - state: HIGH_USAGE
-    title: POWER WARNING
-    subtitle: "Consuming {{ state }}kW - Switch off non-essential loads"
+  - state: "/.*/"
+    color: "#607D8B"
+    title: "SERVER LOAD"
+    status_text: "CPU: {{ state }}% | RAM: {{ attr.ram_usage }}%"
+```
+
+## 11. Action-First (Large Button)
+
+Expanded footer with a full-width interaction button.
+
+```yaml
+type: custom:lovelace-multi-state-entities-card
+entity: sensor.medication_reminder
+footer_height: 70px
+button_position: center
+rules:
+  - state: "DUE"
     color: "#FF5722"
+    title: "TAKE VITAMINS"
+    button_text: "MARK AS TAKEN"
 ```
 
-## 12. Dashboard Header (No Icon)
+## 12. Floating Icon (Headerless)
 
-Large text-only banner for the top of a dashboard.
+Header height 0, using the status box and footer for info.
 
 ```yaml
 type: custom:lovelace-multi-state-entities-card
-entity: sensor.house_summary
-icon_size: 0px
-title_size: 2rem
-rules:
-  - state: ALL_GOOD
-    title: GOOD MORNING
-    color: "#673AB7"
-```
-
-## 13. Status Box Focus
-
-Hides the header and focuses on the dynamic status box.
-
-```yaml
-type: custom:lovelace-multi-state-entities-card
-entity: sensor.appliance_status
+entity: sensor.dishwasher_status
 header_height: 0px
 show_status: true
 rules:
-  - state: RUNNING
-    status_text: "Finishing in {{ attr.time_remaining }}m"
-    color: "#03A9F4"
+  - state: "CLEAN"
+    color: "#00BCD4"
+    status_text: "DISHES ARE CLEAN"
+    button_text: "RESET"
 ```
 
-## 14. Action Oriented (Large Button)
+## 13. Double Inverted Wedges
 
-Large footer button for immediate interaction.
+Accent covers top-left and bottom-right corners.
 
 ```yaml
 type: custom:lovelace-multi-state-entities-card
-entity: sensor.medication_status
-footer_height: 60px
+entity: sensor.network_traffic
+accent_start: top-left
+accent_end: bottom-right
 rules:
-  - state: DUE
-    title: TAKE VITAMINS
-    button_text: "I TOOK IT"
-    color: "#E91E63"
+  - state: "/.*/"
+    color: "#3F51B5"
+    title: "NETWORK TRAFFIC"
+    icon: mdi:lan-check
 ```
 
-## 15. The "News Ticker"
+## 14. The "News Ticker"
 
-Ultra compact, wide banner.
+Very wide, very short, centered text.
 
 ```yaml
 type: custom:lovelace-multi-state-entities-card
-entity: sensor.weather_alerts
-header_height: 40px
-title_size: 0.9rem
+entity: sensor.weather_alert
+header_height: 35px
+title_size: 1rem
+title_alignment: center
+show_status: false
+show_footer: false
 rules:
-  - state: ADVISORY
-    title: "ALERT: {{ attr.summary }}"
+  - state: "WARNING"
     color: "#FFEB3B"
     title_color: "#000000"
+    title: "STORM WARNING: {{ attr.description }}"
+```
+
+## 15. The Deep Shadow
+
+Using a dark primary color with a bright accent.
+
+```yaml
+type: custom:lovelace-multi-state-entities-card
+entity: sensor.energy_grid_mode
+background_color: "#1A1A1A"
+rules:
+  - state: "EXPORTING"
+    color: "#00E676"
+    title_color: "#FFFFFF"
+    title: "SOLAR EXPORTING"
+    subtitle: "Selling 3.2kW to grid"
 ```
