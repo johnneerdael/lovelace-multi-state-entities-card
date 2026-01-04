@@ -1,5 +1,5 @@
 {
-  "name": "status-banner-card",
+  "name": "lovelace-multi-state-entities-card",
   "version": "1.4.2",
   "description": "A flexible Home Assistant Lovelace card with banner design for displaying entity states",
   "keywords": [
@@ -10,13 +10,14 @@
     "lovelace",
     "custom-cards",
     "status",
-    "banner"
+    "banner",
+    "multi-state"
   ],
-  "module": "status-banner-card.js",
+  "module": "lovelace-multi-state-entities-card.js",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jneerdael/status-banner-card"
+    "url": "https://github.com/johnneerdael/lovelace-multi-state-entities-card"
   },
   "author": "jneerdael",
   "license": "MIT",

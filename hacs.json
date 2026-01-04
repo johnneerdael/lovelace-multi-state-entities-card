@@ -1,5 +1,5 @@
 {
-  "name": "Status Banner Card",
+  "name": "Lovelace Multi State Entities Card",
   "render_readme": true,
-  "filename": "status-banner-card.js"
+  "filename": "lovelace-multi-state-entities-card.js"
 }

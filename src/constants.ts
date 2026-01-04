@@ -62,8 +62,8 @@ export const FALLBACK_DISPLAY = {
  * Card information for HACS and card picker
  */
 export const CARD_INFO = {
-  type: 'status-banner-card',
-  name: 'Status Banner Card',
+  type: 'lovelace-multi-state-entities-card',
+  name: 'Lovelace Multi State Entities Card',
   description: 'A flexible status card with banner design for any entity',
-  documentationURL: 'https://github.com/johnneerdael/status-banner-card',
+  documentationURL: 'https://github.com/johnneerdael/lovelace-multi-state-entities-card',
 };

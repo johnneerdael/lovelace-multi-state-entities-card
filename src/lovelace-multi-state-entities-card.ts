@@ -82,8 +82,8 @@ declare global {
   }
 }
 
-@customElement('status-banner-card')
-export class StatusBannerCard extends LitElement {
+@customElement('lovelace-multi-state-entities-card')
+export class LovelaceMultiStateEntitiesCard extends LitElement {
   // ─────────────────────────────────────────────────────────────
   // Properties
   // ─────────────────────────────────────────────────────────────
@@ -177,7 +177,7 @@ export class StatusBannerCard extends LitElement {
   // ─────────────────────────────────────────────────────────────
 
   public static getConfigElement(): HTMLElement {
-    return document.createElement('status-banner-card-editor');
+    return document.createElement('lovelace-multi-state-entities-card-editor');
   }
 
   public static getStubConfig(): Partial<StatusBannerCardConfig> {

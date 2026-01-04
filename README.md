@@ -1,17 +1,21 @@
-# Status Banner Card
+# Lovelace Multi State Entities Card
 
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
-[![GitHub Release](https://img.shields.io/github/release/johnneerdael/status-banner-card.svg)](https://github.com/johnneerdael/status-banner-card/releases)
-![GitHub License](https://img.shields.io/github/license/johnneerdael/status-banner-card?link=https%3A%2F%2Fgithub.com%2Fjohnneerdael%2Fstatus-banner-card%2Fblob%2Fmain%2FLICENSE)
+[![GitHub Release](https://img.shields.io/github/release/johnneerdael/lovelace-multi-state-entities-card.svg)](https://github.com/johnneerdael/lovelace-multi-state-entities-card/releases)
+![GitHub License](https://img.shields.io/github/license/johnneerdael/lovelace-multi-state-entities-card?link=https%3A%2F%2Fgithub.com%2Fjohnneerdael%2Flovelace-multi-state-entities-card%2Fblob%2Fmain%2FLICENSE)
 
 A flexible Home Assistant Lovelace card with a distinctive banner design for displaying entity states. This card excels at displaying "Call to Action" information—situations where the user needs to know something immediately or do something specific. Because of the distinct banner style and the ability to map colors to a flexible number of states, it works best for cards that should support 2 or more different types of states differently. Unique is that the card has no limit to the number of states or associated state colors that you want to report on.
 
 ## What's New
 
+### v1.4.2 - Project Rename & Polish
+- **Renamed to Lovelace Multi State Entities Card** - Reflecting the flexibility of the card
+- **Footer Stacking Fix** - Action button now properly sits above the timestamp when both are on the same side
+- **Strict Editor Layout** - Completely reorganized editor to match logical configuration flow
+
 ### v1.4.1 - Button Types & Layout Refinement
 - **New Button Types** - Action button now supports `Service`, `Toggle`, `More Info`, `Navigate`, `URL`, and `Assist` types directly from the editor
 - **Independent Subtitle Alignment** - New `subtitle_alignment` option allows separate control from title
-- **Strict Editor Layout** - Completely reorganized editor to match logical configuration flow: Entity -> Layout -> Display -> Rules -> Status -> Footer
 - **Timestamp Configuration** - Moved timestamp settings to Layout section for better discoverability
 - **Removed "Full Background" Toggle** - Simplified to just "Triangle Edge" controls (set both to same edge for full background)
 
@@ -85,17 +89,17 @@ A flexible Home Assistant Lovelace card with a distinctive banner design for dis
 
 ## Examples
 
-![1.00](https://github.com/johnneerdael/status-banner-card/blob/main/examples/ev-charging.png?raw=true)
+![1.00](https://github.com/johnneerdael/lovelace-multi-state-entities-card/blob/main/examples/ev-charging.png?raw=true)
 
 * [EV Charging Blueprint](https://gist.githubusercontent.com/johnneerdael/a71b316da3ece86165fe3ae4a9668023/raw/d06c38c4ce01cc7582e6c29174533ec96ccd4ac6/ev-charging-001.yaml), Addons used: Lynk\&Co, Zonneplan, and PirateWeather, Camera Integration and LLM Vision + AI Task
 
-![1.00](https://github.com/johnneerdael/status-banner-card/blob/main/examples/garbage-collection.png?raw=true)
+![1.00](https://github.com/johnneerdael/lovelace-multi-state-entities-card/blob/main/examples/garbage-collection.png?raw=true)
 
 * [Smart Bin Detection Blueprint](https://gist.githubusercontent.com/johnneerdael/f1907f11554b50ee9eee3391987f9092/raw/d105230acd8447b602b1cbea8638129085405083/garbage-collection-001.yaml), Addons used: Afvalbeheer, Time and Date, TTS and Camera Integration and LLM Vision
 
 ## Blueprints
 
-This repository includes ready-to-use Home Assistant blueprints that complement the Status Banner Card.
+This repository includes ready-to-use Home Assistant blueprints that complement the Lovelace Multi State Entities Card.
 
 ### Garbage Collection: Vision Verification
 
@@ -120,22 +124,22 @@ An AI-powered automation that uses camera snapshots to verify bin placement. Fea
 
 1. Open HACS in Home Assistant
 2. Click the three dots menu → Custom repositories
-3. Add `https://github.com/jneerdael/status-banner-card` as a Lovelace repository
-4. Search for "Status Banner Card" and install
+3. Add `https://github.com/johnneerdael/lovelace-multi-state-entities-card` as a Lovelace repository
+4. Search for "Lovelace Multi State Entities Card" and install
 5. Refresh your browser
 
 ### Manual Installation
 
-1. Download `status-banner-card.js` from the [latest release](https://github.com/jneerdael/status-banner-card/releases)
-2. Copy to `/config/www/status-banner-card.js`
+1. Download `lovelace-multi-state-entities-card.js` from the [latest release](https://github.com/johnneerdael/lovelace-multi-state-entities-card/releases)
+2. Copy to `/config/www/lovelace-multi-state-entities-card.js`
 3. Add resource in Home Assistant:
    * Go to Settings → Dashboards → Resources
-   * Add `/local/status-banner-card.js` as JavaScript Module
+   * Add `/local/lovelace-multi-state-entities-card.js` as JavaScript Module
 
 ## Quick Start
 
 ```YAML
-type: custom:status-banner-card
+type: custom:lovelace-multi-state-entities-card
 entity: sensor.garbage_dashboard_status
 
 rules:
@@ -287,7 +291,7 @@ button_actions:
 ### Color mapping (card config)
 
 ```YAML
-type: custom:status-banner-card
+type: custom:lovelace-multi-state-entities-card
 entity: sensor.garbage_dashboard_status
 
 color_map:
@@ -343,7 +347,7 @@ template:
 ### Card config (simple)
 
 ```YAML
-type: custom:status-banner-card
+type: custom:lovelace-multi-state-entities-card
 entity: sensor.garbage_dashboard_status
 
 color_map:
@@ -434,7 +438,7 @@ template:
 ### Card config (advanced vision + memory)
 
 ```YAML
-type: custom:status-banner-card
+type: custom:lovelace-multi-state-entities-card
 entity: sensor.garbage_dashboard_status
 
 color_map:
@@ -481,7 +485,7 @@ Notes:
 ### EV Charging Status
 
 ```YAML
-type: custom:status-banner-card
+type: custom:lovelace-multi-state-entities-card
 entity: input_select.ev_ai_action
 
 rules:
@@ -511,7 +515,7 @@ timestamp_entity: automation.ev_charging_ai_energy_strategist
 ### Alarm Status
 
 ```YAML
-type: custom:status-banner-card
+type: custom:lovelace-multi-state-entities-card
 entity: alarm_control_panel.home
 
 rules:
@@ -544,7 +548,7 @@ default:
 ### Compact Variant
 
 ```YAML
-type: custom:status-banner-card
+type: custom:lovelace-multi-state-entities-card
 entity: sensor.cpu_temperature
 variant: compact
 show_status: false
@@ -570,7 +574,7 @@ default:
 ### Custom Typography & Accent
 
 ```YAML
-type: custom:status-banner-card
+type: custom:lovelace-multi-state-entities-card
 entity: sensor.important_alert
 accent_width: 50
 accent_height: 120
@@ -602,7 +606,7 @@ default:
 ### Inverted Layout (Left-Aligned with Right Triangle)
 
 ```YAML
-type: custom:status-banner-card
+type: custom:lovelace-multi-state-entities-card
 entity: sensor.important_alert
 title_alignment: "left"
 icon_alignment: "left"
@@ -628,7 +632,7 @@ default:
 ### Full Background Banner (Urgent Alert)
 
 ```YAML
-type: custom:status-banner-card
+type: custom:lovelace-multi-state-entities-card
 entity: sensor.emergency_status
 accent_full_background: true
 title_color: "#ffffff"
