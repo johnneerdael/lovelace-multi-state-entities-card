@@ -8,7 +8,7 @@ blueprint:
   input:
     dashboard_sensor:
       name: EV Dashboard Status
-      description: The template sensor created by the 'Status Banner: EV Smart Status' blueprint.
+      description: "The template sensor created by the 'Status Banner: EV Smart Status' blueprint."
       selector:
         entity:
           domain: sensor
