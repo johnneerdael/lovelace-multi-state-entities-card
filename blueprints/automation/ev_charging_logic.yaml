@@ -1,3 +1,4 @@
+---
 blueprint:
   name: "Status Banner: EV Charging Manager"
   description: >
@@ -8,19 +9,19 @@ blueprint:
   input:
     dashboard_sensor:
       name: EV Dashboard Status
-      description: The template sensor created by the 'Status Banner: EV Smart Status' blueprint.
+      description: "The template sensor created by the 'Status Banner: EV Smart Status' blueprint."
       selector:
         entity:
           domain: sensor
     charger_switch:
       name: Charger Control Switch
-      description: The switch that starts/stops the charging session.
+      description: "The switch that starts/stops the charging session."
       selector:
         entity:
           domain: switch
     notify_device:
       name: Mobile Device
-      description: Where to send status updates.
+      description: "Where to send status updates."
       selector:
         device:
           integration: mobile_app
