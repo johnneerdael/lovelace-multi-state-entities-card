@@ -19,7 +19,7 @@ jobs:
 
       - name: Update Release Notes
         env:
-          GH_TOKEN: ${{ secrets.JEKYLL_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ env.JEKYLL_GITHUB_TOKEN }}
         run: |
           # Configure git
           git config --global user.name "github-actions[bot]"
