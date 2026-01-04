@@ -19,7 +19,7 @@ jobs:
 
       - name: Update Release Notes
         env:
-          GH_TOKEN: $TOKEN
+          GH_TOKEN: ${{ env.TOKEN }}
         run: |
           # Configure git
           git config --global user.name "github-actions[bot]"
