@@ -135,7 +135,7 @@ Tracks travel time delay to a destination.
 
 ## Quick Start
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 type: custom:lovelace-multi-state-entities-card
@@ -170,7 +170,7 @@ color_map:
   black: "#686868"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Configuration
 
@@ -241,7 +241,7 @@ Each rule in the `rules` array can have:
 
 ### Button Action
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 button_actions:
@@ -255,7 +255,7 @@ button_actions:
         entity_id: input_button.garbage_status_manual
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Template System
 
@@ -295,7 +295,7 @@ button_actions:
 
 ### Color mapping (card config)
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 type: custom:lovelace-multi-state-entities-card
@@ -309,11 +309,11 @@ color_map:
   default: "#9E9E9E"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Simple schedule-driven template sensor
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 template:
@@ -355,11 +355,11 @@ template:
           next_collection: "{{ states('sensor.avalex_tomorrow') }}"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ### Card config (simple)
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 type: custom:lovelace-multi-state-entities-card
@@ -394,12 +394,12 @@ default:
   status_text: "Next collection: {{ states('sensor.avalex_tomorrow') }}"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Advanced vision + memory outline (matches automation)
 
 Use the provided automation (LLM vision with multi-day memory) to update `input_text.bin_status_memory` and rely on schedule sensors. The template sensor below prioritizes memory when the bin is out, then schedule:
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 template:
@@ -453,11 +453,11 @@ template:
             {% if mem not in ['unknown', 'unavailable', ''] %}vision{% else %}schedule{% endif %}
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ### Card config (advanced vision + memory)
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 type: custom:lovelace-multi-state-entities-card
@@ -495,7 +495,7 @@ default:
   status_text: "Next collection: {{ states('sensor.avalex_tomorrow') }}"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 Notes:
 
 - The automation should write the detected color to `input_text.bin_status_memory` when a bin stays out, and clear it once returned.
@@ -507,7 +507,7 @@ Notes:
 
 ### EV Charging Status
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 type: custom:lovelace-multi-state-entities-card
@@ -537,11 +537,11 @@ default:
 timestamp_entity: automation.ev_charging_ai_energy_strategist
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ### Alarm Status
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 type: custom:lovelace-multi-state-entities-card
@@ -574,11 +574,11 @@ default:
   color: "#9E9E9E"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ### Compact Variant
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 type: custom:lovelace-multi-state-entities-card
@@ -604,11 +604,11 @@ default:
   color: "#F44336"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ### Custom Typography & Accent
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 type: custom:lovelace-multi-state-entities-card
@@ -640,11 +640,11 @@ default:
   color: "#4CAF50"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ### Inverted Layout (Left-Aligned with Right Triangle)
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 type: custom:lovelace-multi-state-entities-card
@@ -674,7 +674,7 @@ default:
 
 ### Full Background Banner (Urgent Alert)
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```YAML
 type: custom:lovelace-multi-state-entities-card
@@ -700,7 +700,7 @@ default:
   color: "#4CAF50"
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Additional Ideas for Use-Cases
 
@@ -842,7 +842,7 @@ For many of these, you will want to create a **Template Sensor** (like we did fo
 
 ## Development
 
-{% raw %}
+<!-- {% raw %} -->
 
 ```Shell
 # Install dependencies
@@ -858,7 +858,7 @@ npm run build
 npm run lint
 ```
 
-{% endraw %}
+<!-- {% endraw %} -->
 
 ## Contributing
 
