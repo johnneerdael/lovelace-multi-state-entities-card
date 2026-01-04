@@ -9,9 +9,9 @@ blueprint:
 
     REQUIRES: 'llmvision' integration and an input_text helper for memory.
 
-    Works great with Status Banner Card for visualization!
+    Works great with Lovelace Multi State Entities Card for visualization!
   domain: automation
-  source_url: https://github.com/johnneerdael/status-banner-card/blob/main/blueprints/garbage_vision_verification.yaml
+  source_url: https://github.com/johnneerdael/lovelace-multi-state-entities-card/blob/main/blueprints/garbage_vision_verification.yaml
   input:
     section_sensors:
       name: "1. Trash Schedule Sensors"

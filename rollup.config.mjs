@@ -6,7 +6,7 @@ import json from '@rollup/plugin-json';
 export default {
   input: 'src/index.ts',
   output: {
-    file: 'dist/status-banner-card.js',
+    file: 'dist/lovelace-multi-state-entities-card.js',
     format: 'es',
     sourcemap: true,
   },

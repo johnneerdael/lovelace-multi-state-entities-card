@@ -9,8 +9,8 @@ import {
 } from './types';
 import { DEFAULT_CONFIG } from './constants';
 
-@customElement('status-banner-card-editor')
-export class StatusBannerCardEditor extends LitElement {
+@customElement('lovelace-multi-state-entities-card-editor')
+export class LovelaceMultiStateEntitiesCardEditor extends LitElement {
   @property({ attribute: false })
   public hass!: HomeAssistantFixed;
 
