@@ -24,26 +24,7 @@ blueprint:
           domain: [input_button, input_boolean]
 
 template:
-  - sensor:
-      - name: Mailbox Dashboard Status
-        state: >
-          {# This sensor relies on an automation to toggle a helper, #}
-          {# OR we can try to infer state from timestamps if simple. #}
-          {# For robustness, we will assume an automation manages an input_select or input_text #}
-          {# BUT since this is a Template Blueprint, we want it self-contained if possible. #}
-          {# We'll use a 'last_changed' comparison logic if possible, but state persistence is hard in templates. #}
-          {# Recommendation: This blueprint simply formats an existing helper status. #}
-
-          {# User must provide a helper that tracks the state: EMPTY, MAIL_ARRIVED #}
-          {# Actually, let's make this easier: #}
-          {# We can use a trigger-based template sensor! #}
-          {# Wait, blueprints for template sensors support triggers? YES! #}
-
-          MAIL_STATUS_PLACEHOLDER
-          {# We will override this entire block with a trigger-based config below #}
-
-    # Trigger-based template sensor structure
-    trigger:
+  - trigger:
       - platform: state
         entity_id: !input mailbox_sensor
         to: "on"
@@ -54,7 +35,6 @@ template:
       - platform: time
         at: "00:00:00"
         id: "new_day"
-
     sensor:
       - name: Mailbox Dashboard Status
         state: >
