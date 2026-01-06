@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
-    "preview": "vitepress preview"
+    "preview": "vitepress preview",
+    "clean": "rm -rf .vitepress/dist"
   },
   "devDependencies": {
     "vitepress": "^1.6.4"

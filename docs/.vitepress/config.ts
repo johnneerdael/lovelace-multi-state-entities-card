@@ -5,7 +5,6 @@ export default defineConfig({
   description:
     "A flexible Home Assistant Lovelace card with banner design for displaying entity states",
   lang: "en-US",
-  base: "/lovelace-multi-state-entities-card/",
 
   appearance: "dark",
 
