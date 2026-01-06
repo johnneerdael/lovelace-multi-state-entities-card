@@ -713,7 +713,7 @@ window.customCards.push({
 
 // Log version info
 console.info(
-  `%c  STATUS-BANNER-CARD  %c  v1.4.2  `,
+  `%c  STATUS-BANNER-CARD  %c  v1.4.3  `,
   "color: white; background: #2196F3; font-weight: bold;",
   "color: #2196F3; background: white; font-weight: bold;",
 );
